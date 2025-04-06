@@ -44,69 +44,90 @@
 }
 
 :root {
-  --background: hsl(0, 0%, 100%);
-  --foreground: hsl(224, 71.4%, 4.1%);
-  --card: hsl(0, 0%, 100%);
-  --card-foreground: hsl(224, 71.4%, 4.1%);
-  --popover: hsl(0, 0%, 100%);
-  --popover-foreground: hsl(224, 71.4%, 4.1%);
-  --primary: hsl(262.1, 83.3%, 57.8%);
-  --primary-foreground: hsl(210, 20%, 98%);
-  --secondary: hsl(220, 14.3%, 95.9%);
-  --secondary-foreground: hsl(220.9, 39.3%, 11%);
-  --muted: hsl(220, 14.3%, 95.9%);
-  --muted-foreground: hsl(220, 8.9%, 46.1%);
-  --accent: hsl(220, 14.3%, 95.9%);
-  --accent-foreground: hsl(220.9, 39.3%, 11%);
-  --destructive: hsl(0, 84.2%, 60.2%);
-  --destructive-foreground: hsl(210, 20%, 98%);
+  --background: hsl(229, 57%, 100%);
+  --foreground: hsl(229, 63%, 4%);
+  --muted: hsl(229, 12%, 86%);
+  --muted-foreground: hsl(229, 10%, 37%);
+  --popover: hsl(0, 0%, 99%);
+  --popover-foreground: hsl(229, 63%, 3%);
+  --card: hsl(0, 0%, 99%);
+  --card-foreground: hsl(229, 63%, 3%);
   --border: hsl(220, 13%, 91%);
   --input: hsl(220, 13%, 91%);
-  --ring: hsl(262.1, 83.3%, 57.8%);
+  --primary: hsl(229, 100%, 61.66%);
+  --primary-foreground: hsl(0, 0%, 100%);
+  --secondary: hsl(229, 20%, 90%);
+  --secondary-foreground: hsl(229, 20%, 30%);
+  --accent: hsl(229, 28%, 85%);
+  --accent-foreground: hsl(229, 28%, 25%);
+  --destructive: hsl(3, 99.48%, 51.03%);
+  --destructive-foreground: hsl(3, 0%, 100%);
+  --ring: hsl(229, 100%, 62%);
+  --chart-1: hsl(229, 100%, 61.66%);
+  --chart-2: hsl(229, 20%, 90%);
+  --chart-3: hsl(229, 28%, 85%);
+  --chart-4: hsl(229, 20%, 93%);
+  --chart-5: hsl(
+    229,
+    100%,
+    61.66%
+  ); /* Adjusted 103% to 100% as saturation maxes at 100% */
   --radius: 0.5rem;
-  --chart-1: hsl(12, 76%, 61%);
-  --chart-2: hsl(173, 58%, 39%);
-  --chart-3: hsl(197, 37%, 24%);
-  --chart-4: hsl(43, 74%, 66%);
-  --chart-5: hsl(27, 87%, 67%);
 }
 
 .dark {
-  --background: hsl(224, 71.4%, 4.1%);
-  --foreground: hsl(210, 20%, 98%);
-  --card: hsl(224, 71.4%, 4.1%);
-  --card-foreground: hsl(210, 20%, 98%);
-  --popover: hsl(224, 71.4%, 4.1%);
-  --popover-foreground: hsl(210, 20%, 98%);
-  --primary: hsl(263.4, 70%, 50.4%);
-  --primary-foreground: hsl(210, 20%, 98%);
-  --secondary: hsl(215, 27.9%, 16.9%);
-  --secondary-foreground: hsl(210, 20%, 98%);
-  --muted: hsl(215, 27.9%, 16.9%);
-  --muted-foreground: hsl(217.9, 10.6%, 64.9%);
-  --accent: hsl(215, 27.9%, 16.9%);
-  --accent-foreground: hsl(210, 20%, 98%);
-  --destructive: hsl(0, 62.8%, 30.6%);
-  --destructive-foreground: hsl(210, 20%, 98%);
+  --background: hsl(229, 41%, 4%);
+  --foreground: hsl(229, 23%, 99%);
+  --muted: hsl(229, 12%, 14%);
+  --muted-foreground: hsl(229, 10%, 63%);
+  --popover: hsl(229, 41%, 5%);
+  --popover-foreground: hsl(0, 0%, 100%);
+  --card: hsl(229, 41%, 5%);
+  --card-foreground: hsl(0, 0%, 100%);
   --border: hsl(215, 27.9%, 16.9%);
   --input: hsl(215, 27.9%, 16.9%);
-  --ring: hsl(263.4, 70%, 50.4%);
-  --chart-1: hsl(220, 70%, 50%);
-  --chart-2: hsl(160, 60%, 45%);
-  --chart-3: hsl(30, 80%, 55%);
-  --chart-4: hsl(280, 65%, 60%);
-  --chart-5: hsl(340, 75%, 55%);
+  --primary: hsl(229, 100%, 62%);
+  --primary-foreground: hsl(0, 0%, 100%);
+  --secondary: hsl(229, 14%, 8%);
+  --secondary-foreground: hsl(229, 14%, 68%);
+  --accent: hsl(229, 23%, 17%);
+  --accent-foreground: hsl(229, 23%, 77%);
+  --destructive: hsl(3, 89%, 54%);
+  --destructive-foreground: hsl(0, 0%, 100%);
+  --ring: hsl(229, 100%, 62%);
+  --chart-1: hsl(229, 100%, 62%);
+  --chart-2: hsl(229, 14%, 8%);
+  --chart-3: hsl(229, 23%, 17%);
+  --chart-4: hsl(229, 14%, 11%);
+  --chart-5: hsl(229, 100%, 62%);
 }
 
 @layer base {
+  html {
+    @apply scroll-smooth;
+  }
   * {
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground p-5  min-h-dvh flex flex-col;
+    @apply bg-background text-foreground min-h-dvh flex flex-col;
   }
 
   footer {
     @apply mt-auto;
+  }
+}
+
+@layer components {
+  .hero-bg {
+    background-image: radial-gradient(#09aff4 1px, transparent 1px);
+    background-size: 1.25rem 1.25rem;
+    opacity: 0.3;
+    inset: 0;
+    width: 100%;
+  }
+
+  .bg-text-clip {
+    @apply bg-gradient-to-r from-blue-600 via-purple-500 to-pink-500 text-transparent bg-clip-text;
   }
 }
