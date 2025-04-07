@@ -47,19 +47,19 @@ const Footer = () => {
           <ul className="space-y-2 text-muted-foreground  text-base">
             <li>
               <Link
-                href="/features"
+                href="#features"
                 className="hover:text-primary transition-colors"
               >
                 Features
               </Link>
             </li>
-         
+
             <li>
               <Link
                 href="/demo"
                 className="hover:text-primary transition-colors"
               >
-                Blog
+                Demo
               </Link>
             </li>
             <li>
@@ -87,13 +87,12 @@ const Footer = () => {
             </li>
             <li>
               <Link
-                href="/testimonial"
+                href="#testimonial"
                 className="hover:text-primary transition-colors"
               >
-             Testimonial
+                Testimonial
               </Link>
             </li>
-          
           </ul>
         </div>
       </div>
@@ -109,7 +108,7 @@ const Footer = () => {
         </p>
         <p className="text-sm justify-center flex items-center gap-2 text-muted-foreground">
           Built with <Heart size={20} className="text-destructive" /> by
-          Kendrick.
+          <span className="text-primary"> Kendrick</span>
         </p>
       </div>
     </footer>

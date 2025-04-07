@@ -6,8 +6,7 @@ const testimonials = [
     id: 1,
     name: "John Doe",
     designation: "Software Engineer",
-    testimonial:
-      "The AI suggestions are spot-on, saving me time daily.",
+    testimonial: "The AI suggestions are spot-on, saving me time daily.",
     avatar: "https://randomuser.me/api/portraits/men/1.jpg",
   },
   {
@@ -53,7 +52,7 @@ const testimonials = [
 ];
 
 const TestimonialComponent = () => (
-  <section className="pb-20 px-4 bg-muted/5">
+  <section id="testimonial" className="pb-20 px-4 bg-muted/5">
     <div className="max-w-6xl mx-auto">
       <h2 className="mb-12">What Users Say</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
@@ -63,7 +62,7 @@ const TestimonialComponent = () => (
             className="flex flex-col bg-card outline outline-border p-6 shadow-sm hover:shadow-md transition-shadow duration-300"
           >
             {/* Stars */}
-            <div className="flex items-center justify-center gap-1 mb-6">
+            <div className="flex items-center justify-center gap-1">
               {Array(5)
                 .fill(0)
                 .map((_, i) => (
@@ -74,7 +73,7 @@ const TestimonialComponent = () => (
                 ))}
             </div>
             {/* Testimonial Text */}
-            <p className="text-base text-gray-600 dark:text-gray-300 italic text-center mb-6 leading-relaxed">
+            <p className="text-base text-muted-foreground italic text-center my-3 leading-relaxed">
               “{testimonial.testimonial}”
             </p>
             {/* User Info */}

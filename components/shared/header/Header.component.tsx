@@ -5,7 +5,7 @@ import HeaderMobileComponent from "./header.mobile.component";
 
 const Header = () => {
   return (
-    <header className="flex justify-between items-center border-b border-border py-3 px-5">
+    <header className="fixed left-0 bg-background right-0 w-full top-0 z-[800] flex justify-between items-center border-b border-border py-3 px-5">
       <div>
         <h1 className="font-black text-2xl text-primary">
           Tag-<span className="text-destructive">It</span>

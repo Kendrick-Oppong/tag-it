@@ -31,7 +31,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Header />
-          {children}
+          <main className="mt-18">{children}</main>
           <Footer />
         </ThemeProvider>
       </body>
