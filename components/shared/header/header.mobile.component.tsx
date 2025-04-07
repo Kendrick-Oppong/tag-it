@@ -17,7 +17,7 @@ const HeaderMobileComponent = () => {
   return (
     <Sheet>
       <SheetTrigger className="cursor-pointer rounded-lg sm:hidden">
-        <Menu size={30}/>
+        <Menu size={32} />
       </SheetTrigger>
       <SheetContent side="left" className="bg-secondary px-5 z-[1000]">
         <SheetHeader>

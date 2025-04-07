@@ -22,8 +22,8 @@ const Header = () => {
         ))}
       </ul>
       <div className="flex justify-between gap-4 items-center ">
-        <HeaderMobileComponent />
         <ThemeToggle />
+        <HeaderMobileComponent />
       </div>
     </header>
   );

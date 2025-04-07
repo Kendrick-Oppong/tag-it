@@ -19,7 +19,7 @@ const features = [
     icon: <Search size={42}  />,
     title: "Lightning Search",
     description:
-      "Find anything instantly with full-text search—titles, URLs, or notes—via PostgreSQL or Algolia.",
+      "Find anything instantly with full-text search—titles, URLs, or notes.",
   },
   {
     icon: <Users size={42}  />,
@@ -47,7 +47,7 @@ const features = [
   },
 ];
 
-export default function Features() {
+export default function FeaturesComponent() {
   return (
     <section id="features" className="py-20 px-4 md:px-10 bg-muted/5">
       <div className="max-w-6xl mx-auto text-center">
