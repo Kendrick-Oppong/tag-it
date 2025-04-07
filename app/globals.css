@@ -120,6 +120,10 @@
   footer {
     @apply mt-auto;
   }
+
+  canvas {
+    @apply !w-full;
+  }
 }
 
 @layer components {
