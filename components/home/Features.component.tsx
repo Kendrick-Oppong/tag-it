@@ -1,4 +1,3 @@
-// components/Features.tsx
 import {
   Lightbulb,
   Search,
@@ -10,37 +9,37 @@ import {
 
 const features = [
   {
-    icon: <Lightbulb size={42}  />,
+    icon: <Lightbulb size={42} />,
     title: "AI-Powered Suggestions",
     description:
       "Unlock brilliant bookmark ideas tailored to your habits, powered by cutting-edge machine learning.",
   },
   {
-    icon: <Search size={42}  />,
+    icon: <Search size={42} />,
     title: "Lightning Search",
     description:
       "Find anything instantly with full-text search—titles, URLs, or notes.",
   },
   {
-    icon: <Users size={42}  />,
+    icon: <Users size={42} />,
     title: "Team Collections",
     description:
       "Build shared link hubs with friends or teams, synced and collaborative in real time.",
   },
   {
-    icon: <Tags size={42}  />,
+    icon: <Tags size={42} />,
     title: "Smart Tagging",
     description:
       "Let auto-tagging do the heavy lifting using metadata—tweak and refine with ease.",
   },
   {
-    icon: <MousePointerClick size={42}  />,
+    icon: <MousePointerClick size={42} />,
     title: "Drag & Drop Magic",
     description:
       "Sort your links into folders or collections with seamless, intuitive drag-and-drop.",
   },
   {
-    icon: <Clock size={42}  />,
+    icon: <Clock size={42} />,
     title: "Timed Revisits",
     description:
       "Schedule reminders to dive back into links, articles, or tutorials when it suits you.",

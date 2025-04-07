@@ -3,7 +3,6 @@ export const words = [
   "Organize Your Web",
   "Tag Favorites Fast",
   "Manage Bookmarks",
-  "Discover Smarter",
   "Curate Content",
   "Simplify Browsing",
   "Boost Productivity",
