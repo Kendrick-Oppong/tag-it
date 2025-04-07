@@ -26,7 +26,7 @@ export default function RootLayout({
       <body className={`text-lg ${bai_Jamjuree.className} antialiased`}>
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
+          defaultTheme="dark"
           enableSystem
           disableTransitionOnChange
         >
