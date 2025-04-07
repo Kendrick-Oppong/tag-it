@@ -1,3 +1,11 @@
+import FeaturesComponent from "@/components/home/Features.component";
+import HeroComponent from "@/components/home/Hero.component";
+
 export default function Home() {
-  return <h1>hello</h1>;
+  return (
+    <>
+      <HeroComponent />
+      <FeaturesComponent />
+    </>
+  );
 }
