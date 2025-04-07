@@ -1,11 +1,9 @@
-// components/Footer.tsx
-import React from "react";
 import { Twitter, Github, Mail, Heart } from "lucide-react";
 import Link from "next/link";
 
 const Footer = () => {
   return (
-    <footer className="w-full py-12 px-5 bg-secondary border-t border-border">
+    <footer className="w-full py-12 px-5 bg-card border-t border-border">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
         {/* Brand Column */}
         <div>
@@ -55,17 +53,10 @@ const Footer = () => {
                 Features
               </Link>
             </li>
+         
             <li>
               <Link
-                href="/pricing"
-                className="hover:text-primary transition-colors"
-              >
-                Pricing
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/blog"
+                href="/demo"
                 className="hover:text-primary transition-colors"
               >
                 Blog
@@ -96,28 +87,13 @@ const Footer = () => {
             </li>
             <li>
               <Link
-                href="/terms"
+                href="/testimonial"
                 className="hover:text-primary transition-colors"
               >
-                Terms of Service
+             Testimonial
               </Link>
             </li>
-            <li>
-              <Link
-                href="/privacy"
-                className="hover:text-primary transition-colors"
-              >
-                Privacy Policy
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/support"
-                className="hover:text-primary transition-colors"
-              >
-                Get Help
-              </Link>
-            </li>
+          
           </ul>
         </div>
       </div>

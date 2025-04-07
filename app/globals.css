@@ -113,6 +113,10 @@
     @apply bg-background text-foreground min-h-dvh flex flex-col;
   }
 
+  h2 {
+    @apply text-3xl text-center md:text-5xl font-extrabold;
+  }
+
   footer {
     @apply mt-auto;
   }

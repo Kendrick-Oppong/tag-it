@@ -1,4 +1,3 @@
-// components/HeaderMobileComponent.tsx
 import { navLinks } from "@/constants/header.constants";
 import Link from "next/link";
 import React from "react";
