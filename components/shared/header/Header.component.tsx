@@ -1,16 +1,17 @@
 import { navLinks } from "@/constants/header.constants";
 import Link from "next/link";
 import { ThemeToggle } from "../theme/theme-toggle";
+import HeaderMobileComponent from "./header.mobile.component";
 
 const Header = () => {
   return (
-    <header className="flex justify-between items-center border-b border-border p-3">
+    <header className="flex justify-between items-center border-b border-border py-3 px-5">
       <div>
         <h1 className="font-black text-2xl text-primary">
           Tag-<span className="text-destructive">It</span>
         </h1>
       </div>
-      <ul className="flex justify-between gap-4 items-center ">
+      <ul className="hidden sm:flex justify-between gap-4 items-center ">
         {navLinks.map((link) => (
           <li
             key={link.name}
@@ -20,7 +21,10 @@ const Header = () => {
           </li>
         ))}
       </ul>
-      <ThemeToggle />
+      <div className="flex justify-between gap-4 items-center ">
+        <HeaderMobileComponent />
+        <ThemeToggle />
+      </div>
     </header>
   );
 };

@@ -3,6 +3,7 @@ import { Bai_Jamjuree } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/shared/header/Header.component";
 import { ThemeProvider } from "@/components/shared/theme/theme-provider";
+import Footer from "@/components/shared/footer/Footer.component";
 
 const bai_Jamjuree = Bai_Jamjuree({
   subsets: ["latin"],
@@ -31,6 +32,7 @@ export default function RootLayout({
         >
           <Header />
           {children}
+          <Footer />
         </ThemeProvider>
       </body>
     </html>

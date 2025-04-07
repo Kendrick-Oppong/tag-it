@@ -13,7 +13,7 @@ const HeroComponent = () => {
           Organize Your Web <br />
           <p className="text-primary bg-text-clip">Your Way</p>
         </h1>
-        <div className="inline-flex mt-8 items-center gap-3 px-6 py-3 mb-6 border border rounded-full backdrop-blur-sm shadow-lg sm:mt-10 sm:mb-8">
+        <div className="inline-flex mt-8 items-center gap-3 px-6 py-3 mb-6  border rounded-full backdrop-blur-sm shadow-lg sm:mt-10 sm:mb-8">
           <FlipWords words={words} className="font-semibold " />
         </div>
         <p className="font-medium">
