@@ -19,7 +19,7 @@ const Header = () => {
             key={link.name}
             className="font-medium hover:border hover:text-primary p-2 rounded-lg "
           >
-            <Link href={`/${link.href}`}>{link.name}</Link>
+            <Link href={`${link.href}`}>{link.name}</Link>
           </li>
         ))}
       </ul>

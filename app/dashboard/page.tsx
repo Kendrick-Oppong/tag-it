@@ -25,7 +25,7 @@ export default function DashboardPage() {
         }
       >
         <AppSidebar />
-        <SidebarInset className="bg-muted/50">
+        <SidebarInset>
           <header className="sticky top-0 flex shrink-0 items-center gap-2  border-b p-4">
             <SidebarTrigger className="-ml-1" />
             <Separator
