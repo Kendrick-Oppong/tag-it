@@ -73,6 +73,14 @@
     61.66%
   ); /* Adjusted 103% to 100% as saturation maxes at 100% */
   --radius: 0.5rem;
+  --sidebar: hsl(229, 57%, 100%);
+  --sidebar-foreground: hsl(229, 63%, 4%);
+  --sidebar-primary: hsl(229, 100%, 61.66%);
+  --sidebar-primary-foreground: hsl(0, 0%, 100%);
+  --sidebar-accent: hsl(229, 28%, 85%);
+  --sidebar-accent-foreground: hsl(229, 28%, 25%);
+  --sidebar-border: hsl(220, 13%, 91%);
+  --sidebar-ring: hsl(229, 100%, 62%);
 }
 
 .dark {
@@ -100,6 +108,15 @@
   --chart-3: hsl(229, 23%, 17%);
   --chart-4: hsl(229, 14%, 11%);
   --chart-5: hsl(229, 100%, 62%);
+  --sidebar: hsl(240 5.9% 10%);
+  --sidebar-foreground: hsl(229, 23%, 99%);
+  --sidebar-primary: hsl(229, 100%, 62%);
+  --sidebar-primary-foreground: hsl(0, 0%, 100%);
+  --sidebar-accent: hsl(229, 23%, 17%);
+  --sidebar-accent-foreground: hsl(229, 23%, 77%);
+  --sidebar-border: hsl(215, 27.9%, 16.9%);
+  --sidebar-ring: hsl(229, 100%, 62%);
+  --radius: 0.5rem;
 }
 
 @layer base {
@@ -137,5 +154,14 @@
 
   .bg-text-clip {
     @apply bg-gradient-to-r from-blue-600 via-purple-500 to-pink-500 text-transparent bg-clip-text;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
   }
 }

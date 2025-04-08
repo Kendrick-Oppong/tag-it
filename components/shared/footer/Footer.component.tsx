@@ -47,7 +47,7 @@ const Footer = () => {
           <ul className="space-y-2 text-muted-foreground  text-base">
             <li>
               <Link
-                href="#features"
+                href="/#features"
                 className="hover:text-primary transition-colors"
               >
                 Features
@@ -87,7 +87,7 @@ const Footer = () => {
             </li>
             <li>
               <Link
-                href="#testimonial"
+                href="/#testimonial"
                 className="hover:text-primary transition-colors"
               >
                 Testimonial

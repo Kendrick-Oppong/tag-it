@@ -7,9 +7,11 @@ const Header = () => {
   return (
     <header className="fixed left-0 bg-background right-0 w-full top-0 z-[800] flex justify-between items-center border-b border-border py-3 px-5">
       <div>
-        <h1 className="font-black text-2xl text-primary">
-          Tag-<span className="text-destructive">It</span>
-        </h1>
+        <Link href="/">     
+          <h1 className="font-black text-2xl text-primary">
+            Tag-<span className="text-destructive">It</span>
+          </h1>
+        </Link>
       </div>
       <ul className="hidden sm:flex justify-between gap-4 items-center ">
         {navLinks.map((link) => (
@@ -17,7 +19,7 @@ const Header = () => {
             key={link.name}
             className="font-medium hover:border hover:text-primary p-2 rounded-lg "
           >
-            <Link href={link.href}>{link.name}</Link>
+            <Link href={`/${link.href}`}>{link.name}</Link>
           </li>
         ))}
       </ul>

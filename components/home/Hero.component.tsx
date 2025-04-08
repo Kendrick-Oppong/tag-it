@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { BackgroundPattern } from "./background-pattern";
 import FlipWords from "../ui/flip-words";
 import { words } from "@/constants/hero.constants";
+import Link from "next/link";
 
 const HeroComponent = () => {
   return (
@@ -22,7 +23,7 @@ const HeroComponent = () => {
         </p>
         <div className="my-5">
           <Button className="cursor-pointer" size="lg">
-            Get Started
+            <Link href="dashboard"> Get Started</Link>
           </Button>
         </div>
       </div>
