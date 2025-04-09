@@ -1,7 +1,17 @@
 "use client";
 
 import * as React from "react";
-import { ArchiveX, File, Inbox, Send, Trash2 } from "lucide-react";
+import {
+  LayoutDashboard,
+  Bookmark,
+  FolderKanban,
+  BrainCircuit,
+  Search,
+  Tags,
+  Users,
+  Clock,
+  Settings,
+} from "lucide-react";
 
 import { NavUser } from "@/components/nav-user";
 import { Label } from "@/components/ui/label";
@@ -29,33 +39,57 @@ const data = {
   },
   navMain: [
     {
-      title: "Inbox",
-      url: "#",
-      icon: Inbox,
+      title: "Dashboard",
+      url: "/dashboard",
+      icon: LayoutDashboard,
       isActive: true,
     },
     {
-      title: "Drafts",
-      url: "#",
-      icon: File,
+      title: "My Bookmarks",
+      url: "/bookmarks",
+      icon: Bookmark,
       isActive: false,
     },
     {
-      title: "Sent",
-      url: "#",
-      icon: Send,
+      title: "Collections",
+      url: "/collections",
+      icon: FolderKanban,
       isActive: false,
     },
     {
-      title: "Junk",
-      url: "#",
-      icon: ArchiveX,
+      title: "AI Suggestions",
+      url: "/suggestions",
+      icon: BrainCircuit,
       isActive: false,
     },
     {
-      title: "Trash",
-      url: "#",
-      icon: Trash2,
+      title: "Search",
+      url: "/search",
+      icon: Search,
+      isActive: false,
+    },
+    {
+      title: "Tags",
+      url: "/tags",
+      icon: Tags,
+      isActive: false,
+    },
+    {
+      title: "Teams",
+      url: "/teams",
+      icon: Users,
+      isActive: false,
+    },
+    {
+      title: "Revisit Later",
+      url: "/reminders",
+      icon: Clock,
+      isActive: false,
+    },
+    {
+      title: "Settings",
+      url: "/settings",
+      icon: Settings,
       isActive: false,
     },
   ],
@@ -83,27 +117,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         collapsible="none"
         className="w-[calc(var(--sidebar-width-icon)+1px)]! border-r"
       >
-        {/* <SidebarHeader>
-          <SidebarMenu>
-            <SidebarMenuItem>
-              <SidebarMenuButton size="lg" asChild className="md:h-8 md:p-0">
-                <a href="#">
-                  <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
-                    <Command className="size-4" />
-                  </div>
-                  <div className="grid flex-1 text-left text-sm leading-tight">
-                    <span className="truncate font-medium">Acme Inc</span>
-                    <span className="truncate text-xs">Enterprise</span>
-                  </div>
-                </a>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-          </SidebarMenu>
-        </SidebarHeader> */}
+       
         <SidebarContent className="bg-background">
           <SidebarGroup>
             <SidebarGroupContent className="px-1.5 md:px-0">
               <SidebarMenu className="space-y-3">
+                 {/* Left Sidebar (Nav) */}
                 {data.navMain.map((item) => (
                   <SidebarMenuItem key={item.title}>
                     <SidebarMenuButton
