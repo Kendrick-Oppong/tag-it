@@ -2,19 +2,17 @@
 
 import * as React from "react";
 import {
-  LayoutDashboard,
   Bookmark,
   FolderKanban,
   BrainCircuit,
   Search,
   Tags,
-  Users,
   Clock,
   Settings,
+  Plus,
 } from "lucide-react";
 
 import { NavUser } from "@/components/nav-user";
-import { Label } from "@/components/ui/label";
 import {
   Sidebar,
   SidebarContent,
@@ -28,9 +26,8 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar";
-import { Switch } from "@/components/ui/switch";
+import { Button } from "./ui/button";
 
-// This is sample data
 const data = {
   user: {
     name: "shadcn",
@@ -39,69 +36,89 @@ const data = {
   },
   navMain: [
     {
-      title: "Dashboard",
-      url: "/dashboard",
-      icon: LayoutDashboard,
-      isActive: true,
-    },
-    {
-      title: "My Bookmarks",
+      title: "Bookmarks",
       url: "/bookmarks",
       icon: Bookmark,
-      isActive: false,
+      isActive: true,
+      subItems: [
+        { title: "Favorites", url: "/bookmarks/favorites" },
+        { title: "Uncategorized", url: "/bookmarks/uncategorized" },
+        { title: "Recently Added", url: "/bookmarks/recent" },
+        { title: "Archived", url: "/bookmarks/archived" },
+      ],
     },
     {
       title: "Collections",
       url: "/collections",
       icon: FolderKanban,
       isActive: false,
+      subItems: [
+        { title: "Personal Collections", url: "/collections/personal" },
+        { title: "Team Collections", url: "/collections/team" },
+        { title: "Public Collections", url: "/collections/public" },
+      ],
     },
     {
-      title: "AI Suggestions",
+      title: "Suggestions",
       url: "/suggestions",
       icon: BrainCircuit,
       isActive: false,
+      subItems: [
+        { title: "Tag-Based", url: "/suggestions/tags" },
+        { title: "Trending Links", url: "/suggestions/trending" },
+        { title: "Related Content", url: "/suggestions/related" },
+      ],
     },
     {
       title: "Search",
       url: "/search",
       icon: Search,
       isActive: false,
+      subItems: [
+        { title: "Recent Searches", url: "/search/recent" },
+        { title: "Pinned Results", url: "/search/pinned" },
+        { title: "Advanced Filters", url: "/search/filters" },
+      ],
     },
     {
       title: "Tags",
       url: "/tags",
       icon: Tags,
       isActive: false,
-    },
-    {
-      title: "Teams",
-      url: "/teams",
-      icon: Users,
-      isActive: false,
+      subItems: [
+        { title: "Auto-Tagged", url: "/tags/auto" },
+        { title: "Custom Tags", url: "/tags/custom" },
+        { title: "Most Used", url: "/tags/popular" },
+      ],
     },
     {
       title: "Revisit Later",
       url: "/reminders",
       icon: Clock,
       isActive: false,
+      subItems: [
+        { title: "Today", url: "/reminders/today" },
+        { title: "This Week", url: "/reminders/week" },
+        { title: "Overdue", url: "/reminders/overdue" },
+      ],
     },
     {
       title: "Settings",
       url: "/settings",
       icon: Settings,
       isActive: false,
+      subItems: [
+        { title: "Account", url: "/settings/account" },
+        { title: "Appearance", url: "/settings/appearance" },
+        { title: "Import/Export", url: "/settings/import-export" },
+      ],
     },
   ],
   mails: [],
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-  // Note: I'm using state to show active item.
-  // IRL you should use the url/router.
   const [activeItem, setActiveItem] = React.useState(data.navMain[0]);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [mails, setMails] = React.useState(data.mails);
   const { setOpen } = useSidebar();
 
   return (
@@ -110,19 +127,15 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       className="overflow-hidden *:data-[sidebar=sidebar]:flex-row"
       {...props}
     >
-      {/* This is the first sidebar */}
-      {/* We disable collapsible and adjust width to icon. */}
-      {/* This will make the sidebar appear as icons. */}
+      {/* Icon Sidebar */}
       <Sidebar
         collapsible="none"
         className="w-[calc(var(--sidebar-width-icon)+1px)]! border-r"
       >
-       
         <SidebarContent className="bg-background">
           <SidebarGroup>
             <SidebarGroupContent className="px-1.5 md:px-0">
               <SidebarMenu className="space-y-3">
-                 {/* Left Sidebar (Nav) */}
                 {data.navMain.map((item) => (
                   <SidebarMenuItem key={item.title}>
                     <SidebarMenuButton
@@ -132,13 +145,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                       }}
                       onClick={() => {
                         setActiveItem(item);
-                        const mail = data.mails.sort(() => Math.random() - 0.5);
-                        setMails(
-                          mail.slice(
-                            0,
-                            Math.max(5, Math.floor(Math.random() * 10) + 1)
-                          )
-                        );
                         setOpen(true);
                       }}
                       isActive={activeItem?.title === item.title}
@@ -158,27 +164,50 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         </SidebarFooter>
       </Sidebar>
 
-      {/* This is the second sidebar */}
-      {/* We disable collapsible and let it fill remaining space */}
+      {/* Content Sidebar */}
       <Sidebar
         collapsible="none"
         className="hidden bg-background flex-1 md:flex"
       >
-        <SidebarHeader className="gap-3.5 border-b p-4">
+        <SidebarHeader className="gap-3.5 border-b px-4 py-3">
           <div className="flex w-full items-center justify-between">
             <div className="text-foreground text-base font-medium">
               {activeItem?.title}
             </div>
-            <Label className="flex items-center gap-2 text-sm">
-              <span>Unreads</span>
-              <Switch className="shadow-none" />
-            </Label>
+            <div className="flex items-center gap-2">
+              <p className="text-primary font-medium text-base">
+                Total ({activeItem?.subItems?.length || 0})
+              </p>
+              <Button
+                variant="default"
+                className="p-1 rounded-full"
+                title="Create Subfolder"
+              >
+                <Plus size={16} />
+              </Button>
+            </div>
           </div>
-          <SidebarInput placeholder="Type to search..." />
+          <SidebarInput
+            placeholder={`Search ${activeItem?.title.toLowerCase()}...`}
+            className="rounded-sm border border-primary mt-2"
+          />
         </SidebarHeader>
         <SidebarContent>
           <SidebarGroup className="px-0">
-            <SidebarGroupContent>2nd side bar content</SidebarGroupContent>
+            <SidebarGroupContent className="px-3">
+              <SidebarMenu>
+                {activeItem?.subItems?.map((subItem) => (
+                  <SidebarMenuItem key={subItem.title}>
+                    <SidebarMenuButton
+                      asChild
+                      className="hover:text-primary hover:bg-muted/10 hover:dark:bg-muted rounded-md py-2"
+                    >
+                      <a href={subItem.url}>{subItem.title}</a>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                ))}
+              </SidebarMenu>
+            </SidebarGroupContent>
           </SidebarGroup>
         </SidebarContent>
       </Sidebar>
