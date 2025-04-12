@@ -30,11 +30,19 @@ const Header = () => {
       </ul>
 
       <div className="flex justify-between gap-4 items-center">
-        <Button name="search" variant="ghost" size="icon" aria-label="Toggle global search">
+        <Button
+          name="search"
+          variant="ghost"
+          size="icon"
+          aria-label="Toggle global search"
+        >
           <Search size={20} />
         </Button>
 
         <ThemeToggle />
+        <div className="w-8 h-8 rounded-full bg-muted flex items-center justify-center">
+          <span className="text-foreground">N</span>
+        </div>
         <HeaderMobileComponent />
       </div>
     </header>

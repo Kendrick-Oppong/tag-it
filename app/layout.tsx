@@ -5,6 +5,7 @@ import Header from "@/components/shared/header/Header.component";
 import { ThemeProvider } from "@/components/shared/theme/theme-provider";
 import Footer from "@/components/shared/footer/Footer.component";
 
+
 const bai_Jamjuree = Bai_Jamjuree({
   subsets: ["latin"],
   weight: ["200", "300", "400", "500", "600", "700"],
