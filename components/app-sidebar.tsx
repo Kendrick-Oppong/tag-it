@@ -172,12 +172,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <SidebarHeader className="gap-3.5 border-b px-4 py-3">
           <div className="flex w-full items-center justify-between">
             <div className="text-foreground text-base font-medium">
-              {activeItem?.title}
+              {activeItem?.title}{" "}
+              <span className="text-destructive"> ({activeItem?.subItems?.length || 0})</span>
             </div>
             <div className="flex items-center gap-2">
-              <p className="text-primary font-medium text-base">
-                Total ({activeItem?.subItems?.length || 0})
-              </p>
               <button
                 className="p-1 rounded-full bg-primary text-white hover:bg-primary/90 transition-colors"
                 title="Create Subfolder"

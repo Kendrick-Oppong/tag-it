@@ -18,16 +18,12 @@ export default function Page() {
   return (
     <SidebarProvider
       className="w-auto"
-      style={
-        {
-          "--sidebar-width": "350px",
-        } as React.CSSProperties
-      }
+     
     >
 
-        <AppSidebar />
+        <AppSidebar/>
       <SidebarInset>
-        <header className="bg-background sticky top-0 flex shrink-0 items-center gap-2 border-b p-4">
+        <header className="bg-background mt-16 w-full fixed top-0 flex shrink-0 items-center gap-2 border-b p-4">
           <SidebarTrigger className="-ml-1" />
           <Separator
             orientation="vertical"
