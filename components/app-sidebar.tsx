@@ -64,7 +64,7 @@ const data = {
       icon: BrainCircuit,
       isActive: false,
       subItems: [
-        { title: "Tag-Based Suggestions", url: "/suggestions/tags" },
+        { title: "Tag-Based", url: "/suggestions/tags" },
         { title: "Trending Links", url: "/suggestions/trending" },
         { title: "Related Content", url: "/suggestions/related" },
       ],
@@ -124,7 +124,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar
       collapsible="icon"
-      className="sticky overflow-hidden *:data-[sidebar=sidebar]:flex-row"
+      className="fixed mt-18 overflow-hidden *:data-[sidebar=sidebar]:flex-row"
       {...props}
     >
       {/* Icon Sidebar */}
@@ -186,7 +186,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           </div>
           <SidebarInput
             placeholder={`Search ${activeItem?.title.toLowerCase()}...`}
-            className="rounded-lg bg-muted/20 mt-2"
+            className="rounded-md h-10 border-primary mt-2"
           />
         </SidebarHeader>
         <SidebarContent>

@@ -33,7 +33,7 @@ export default function RootLayout({
         >
           <Header />
           <main className="mt-18 relative">{children}</main>
-          <Footer />
+          {/* <Footer /> */}
         </ThemeProvider>
       </body>
     </html>
