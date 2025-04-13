@@ -26,7 +26,6 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar";
-import { Button } from "./ui/button";
 
 const data = {
   user: {
@@ -41,6 +40,7 @@ const data = {
       icon: Bookmark,
       isActive: true,
       subItems: [
+        { title: "All", url: "/bookmarks/all" },
         { title: "Favorites", url: "/bookmarks/favorites" },
         { title: "Uncategorized", url: "/bookmarks/uncategorized" },
         { title: "Recently Added", url: "/bookmarks/recent" },
@@ -64,7 +64,7 @@ const data = {
       icon: BrainCircuit,
       isActive: false,
       subItems: [
-        { title: "Tag-Based", url: "/suggestions/tags" },
+        { title: "Tag-Based Suggestions", url: "/suggestions/tags" },
         { title: "Trending Links", url: "/suggestions/trending" },
         { title: "Related Content", url: "/suggestions/related" },
       ],
@@ -124,7 +124,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar
       collapsible="icon"
-      className="overflow-hidden *:data-[sidebar=sidebar]:flex-row"
+      className="sticky overflow-hidden *:data-[sidebar=sidebar]:flex-row"
       {...props}
     >
       {/* Icon Sidebar */}
@@ -178,29 +178,28 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               <p className="text-primary font-medium text-base">
                 Total ({activeItem?.subItems?.length || 0})
               </p>
-              <Button
-                variant="default"
-                className="p-1 rounded-full"
+              <button
+                className="p-1 rounded-full bg-primary text-white hover:bg-primary/90 transition-colors"
                 title="Create Subfolder"
               >
                 <Plus size={16} />
-              </Button>
+              </button>
             </div>
           </div>
           <SidebarInput
             placeholder={`Search ${activeItem?.title.toLowerCase()}...`}
-            className="rounded-sm border border-primary mt-2"
+            className="rounded-lg bg-muted/20 mt-2"
           />
         </SidebarHeader>
         <SidebarContent>
           <SidebarGroup className="px-0">
-            <SidebarGroupContent className="px-3">
+            <SidebarGroupContent className="px-4">
               <SidebarMenu>
                 {activeItem?.subItems?.map((subItem) => (
                   <SidebarMenuItem key={subItem.title}>
                     <SidebarMenuButton
                       asChild
-                      className="hover:text-primary hover:bg-muted/10 hover:dark:bg-muted rounded-md py-2"
+                      className="hover:text-primary hover:bg-secondary/30 dark:hover:bg-muted rounded-md py-2"
                     >
                       <a href={subItem.url}>{subItem.title}</a>
                     </SidebarMenuButton>
