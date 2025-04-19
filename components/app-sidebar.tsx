@@ -4,7 +4,7 @@ import * as React from "react";
 import {
   Bookmark,
   FolderKanban,
-  BrainCircuit,
+  // BrainCircuit,
   Search,
   Tags,
   Clock,
@@ -46,7 +46,7 @@ const data = {
         { title: "Favorites", url: "/bookmarks/favorites" },
         { title: "Uncategorized", url: "/bookmarks/uncategorized" },
         { title: "Recently Added", url: "/bookmarks/recent" },
-        { title: "Archived", url: "/bookmarks/archived" },
+        // { title: "Archived", url: "/bookmarks/archived" },
       ],
     },
     {
@@ -54,23 +54,19 @@ const data = {
       url: "/collections",
       icon: FolderKanban,
       isActive: false,
-      subItems: [
-        { title: "Personal Collections", url: "/collections/personal" },
-        { title: "Team Collections", url: "/collections/team" },
-        { title: "Public Collections", url: "/collections/public" },
-      ],
+      subItems: [],
     },
-    {
-      title: "Suggestions",
-      url: "/suggestions",
-      icon: BrainCircuit,
-      isActive: false,
-      subItems: [
-        { title: "Tag-Based", url: "/suggestions/tags" },
-        { title: "Trending Links", url: "/suggestions/trending" },
-        { title: "Related Content", url: "/suggestions/related" },
-      ],
-    },
+    // {
+    //   title: "Suggestions",
+    //   url: "/suggestions",
+    //   icon: BrainCircuit,
+    //   isActive: false,
+    //   subItems: [
+    //     { title: "Tag-Based", url: "/suggestions/tags" },
+    //     { title: "Trending Links", url: "/suggestions/trending" },
+    //     { title: "Related Content", url: "/suggestions/related" },
+    //   ],
+    // },
     {
       title: "Search",
       url: "/search",

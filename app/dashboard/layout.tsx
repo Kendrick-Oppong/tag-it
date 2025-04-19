@@ -57,9 +57,6 @@ export default function DashboardLayout({
                       <BreadcrumbPage>Inbox</BreadcrumbPage>
                     </BreadcrumbItem>
                   </BreadcrumbList>
-                  {/* <div>
-                    <Button className="w-fit">Add Bookmark</Button>
-                  </div> */}
                 </Breadcrumb>
               </header>
               <section className="mt-16 flex flex-1 flex-col gap-4 p-3">
