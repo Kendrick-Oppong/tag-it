@@ -1,6 +1,6 @@
 generator client {
   provider = "prisma-client-js"
-  output   = "../lib/generated/prisma"
+  output   = "../node_modules/.prisma/client/"
 }
 
 datasource db {
@@ -75,9 +75,8 @@ model Collection {
   parent    Collection?  @relation("CollectionHierarchy", fields: [parentId], references: [id], onDelete: SetNull)
   children  Collection[] @relation("CollectionHierarchy")
 
-// Uniqueness constraint
+  // Uniqueness constraint
   @@unique([userId, name, parentId], name: "collection_userId_name_parentId_unique")
-
   // Indexes
   @@index([userId], name: "collection_userId_idx") // For user-based lookups
   @@index([parentId], name: "collection_parentId_idx") // For hierarchical lookups
