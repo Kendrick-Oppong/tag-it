@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Bai_Jamjuree } from "next/font/google";
 import "./globals.css";
-import Header from "@/components/shared/header/Header.component";
 import { ThemeProvider } from "@/components/shared/theme/theme-provider";
 
 
@@ -30,7 +29,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <Header />
+      
           <main className="mt-18 relative">{children}</main>
         </ThemeProvider>
       </body>

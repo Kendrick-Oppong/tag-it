@@ -1,9 +1,6 @@
-import Link from "next/link";
-import { Search } from "lucide-react";
-import { navLinks } from "@/constants/header.constants";
+import Link from "next/link";import { navLinks } from "@/constants/header.constants";
 import { ThemeToggle } from "../theme/theme-toggle";
 import HeaderMobileComponent from "./header.mobile.component";
-import { Button } from "@/components/ui/button";
 
 const Header = () => {
   return (
@@ -30,14 +27,7 @@ const Header = () => {
       </ul>
 
       <div className="flex justify-between gap-4 items-center">
-        <Button
-          name="search"
-          variant="ghost"
-          size="icon"
-          aria-label="Toggle global search"
-        >
-          <Search size={20} />
-        </Button>
+      
 
         <ThemeToggle />
         <div className="w-8 h-8 rounded-full bg-muted flex items-center justify-center">

@@ -9,6 +9,7 @@ import {
   Tags,
   Clock,
   Settings,
+  FolderPlus,
   Plus,
 } from "lucide-react";
 
@@ -26,6 +27,7 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar";
+import { Button } from "./ui/button";
 
 const data = {
   user: {
@@ -124,7 +126,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar
       collapsible="icon"
-      className="fixed mt-18 overflow-hidden *:data-[sidebar=sidebar]:flex-row"
+      className="fixed mt-16 overflow-hidden *:data-[sidebar=sidebar]:flex-row"
       {...props}
     >
       {/* Icon Sidebar */}
@@ -155,6 +157,17 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 ))}
+                <SidebarMenuItem>
+                  <SidebarMenuButton
+                    tooltip={{
+                      children: "Add Bookmark",
+                      hidden: false,
+                    }}
+                    className="px-2.5 md:px-2"
+                  >
+                    <Plus className="size-10 text-primary" strokeWidth={3} />
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
               </SidebarMenu>
             </SidebarGroupContent>
           </SidebarGroup>
@@ -173,15 +186,15 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           <div className="flex w-full items-center justify-between">
             <div className="text-foreground text-base font-medium">
               {activeItem?.title}{" "}
-              <span className="text-destructive"> ({activeItem?.subItems?.length || 0})</span>
+              <span className="text-destructive">
+                {" "}
+                ({activeItem?.subItems?.length || 0})
+              </span>
             </div>
-            <div className="flex items-center gap-2">
-              <button
-                className="p-1 rounded-full bg-primary text-white hover:bg-primary/90 transition-colors"
-                title="Create Subfolder"
-              >
-                <Plus size={16} />
-              </button>
+            <div className="flex items-center gap-2 text-primary">
+              <Button variant="ghost" title="Create Subfolder">
+                <FolderPlus className="size-5" strokeWidth={2} size={18} />
+              </Button>
             </div>
           </div>
           <SidebarInput
