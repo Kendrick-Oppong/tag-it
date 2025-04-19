@@ -4,11 +4,12 @@ import * as React from "react";
 import {
   Bookmark,
   FolderKanban,
-  BrainCircuit,
+  // BrainCircuit,
   Search,
   Tags,
   Clock,
   Settings,
+  FolderPlus,
   Plus,
 } from "lucide-react";
 
@@ -26,6 +27,7 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar";
+import { Button } from "./ui/button";
 
 const data = {
   user: {
@@ -44,7 +46,7 @@ const data = {
         { title: "Favorites", url: "/bookmarks/favorites" },
         { title: "Uncategorized", url: "/bookmarks/uncategorized" },
         { title: "Recently Added", url: "/bookmarks/recent" },
-        { title: "Archived", url: "/bookmarks/archived" },
+        // { title: "Archived", url: "/bookmarks/archived" },
       ],
     },
     {
@@ -52,23 +54,19 @@ const data = {
       url: "/collections",
       icon: FolderKanban,
       isActive: false,
-      subItems: [
-        { title: "Personal Collections", url: "/collections/personal" },
-        { title: "Team Collections", url: "/collections/team" },
-        { title: "Public Collections", url: "/collections/public" },
-      ],
+      subItems: [],
     },
-    {
-      title: "Suggestions",
-      url: "/suggestions",
-      icon: BrainCircuit,
-      isActive: false,
-      subItems: [
-        { title: "Tag-Based", url: "/suggestions/tags" },
-        { title: "Trending Links", url: "/suggestions/trending" },
-        { title: "Related Content", url: "/suggestions/related" },
-      ],
-    },
+    // {
+    //   title: "Suggestions",
+    //   url: "/suggestions",
+    //   icon: BrainCircuit,
+    //   isActive: false,
+    //   subItems: [
+    //     { title: "Tag-Based", url: "/suggestions/tags" },
+    //     { title: "Trending Links", url: "/suggestions/trending" },
+    //     { title: "Related Content", url: "/suggestions/related" },
+    //   ],
+    // },
     {
       title: "Search",
       url: "/search",
@@ -124,7 +122,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar
       collapsible="icon"
-      className="fixed mt-18 overflow-hidden *:data-[sidebar=sidebar]:flex-row"
+      className="fixed mt-16 overflow-hidden *:data-[sidebar=sidebar]:flex-row"
       {...props}
     >
       {/* Icon Sidebar */}
@@ -155,6 +153,17 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 ))}
+                <SidebarMenuItem>
+                  <SidebarMenuButton
+                    tooltip={{
+                      children: "Add Bookmark",
+                      hidden: false,
+                    }}
+                    className="px-2.5 md:px-2"
+                  >
+                    <Plus className="size-10 text-primary" strokeWidth={3} />
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
               </SidebarMenu>
             </SidebarGroupContent>
           </SidebarGroup>
@@ -169,19 +178,19 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         collapsible="none"
         className="hidden bg-background flex-1 md:flex"
       >
-        <SidebarHeader className="gap-3.5 border-b px-4 py-3">
+        <SidebarHeader className="gap-3.5 border-b px-3 py-3">
           <div className="flex w-full items-center justify-between">
             <div className="text-foreground text-base font-medium">
               {activeItem?.title}{" "}
-              <span className="text-destructive"> ({activeItem?.subItems?.length || 0})</span>
+              <span className="text-destructive">
+                {" "}
+                ({activeItem?.subItems?.length || 0})
+              </span>
             </div>
-            <div className="flex items-center gap-2">
-              <button
-                className="p-1 rounded-full bg-primary text-white hover:bg-primary/90 transition-colors"
-                title="Create Subfolder"
-              >
-                <Plus size={16} />
-              </button>
+            <div className="flex items-center gap-2 text-primary">
+              <Button variant="ghost" title="Create Subfolder">
+                <FolderPlus className="size-5" strokeWidth={2} size={18} />
+              </Button>
             </div>
           </div>
           <SidebarInput
@@ -191,7 +200,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         </SidebarHeader>
         <SidebarContent>
           <SidebarGroup className="px-0">
-            <SidebarGroupContent className="px-4">
+            <SidebarGroupContent className="px-3">
               <SidebarMenu>
                 {activeItem?.subItems?.map((subItem) => (
                   <SidebarMenuItem key={subItem.title}>
