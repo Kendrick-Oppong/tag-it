@@ -41,7 +41,7 @@ export default function DashboardLayout({
           <SidebarProvider className="w-auto">
             <AppSidebar />
             <SidebarInset>
-              <header className="bg-background mt-14 w-full fixed top-0 flex shrink-0 items-center gap-2 border-b p-4">
+              <header className="bg-background mt-16 w-full fixed top-0 flex shrink-0 items-center gap-2 border-b p-3">
                 <SidebarTrigger className="-ml-1" />
                 <Separator
                   orientation="vertical"
@@ -62,7 +62,7 @@ export default function DashboardLayout({
                   </div> */}
                 </Breadcrumb>
               </header>
-              <section className="mt-16 flex flex-1 flex-col gap-4 p-4">
+              <section className="mt-16 flex flex-1 flex-col gap-4 p-3">
                 {children}
                 {Array.from({ length: 24 }).map((_, index) => (
                   <div

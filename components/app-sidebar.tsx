@@ -182,7 +182,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         collapsible="none"
         className="hidden bg-background flex-1 md:flex"
       >
-        <SidebarHeader className="gap-3.5 border-b px-4 py-3">
+        <SidebarHeader className="gap-3.5 border-b px-3 py-3">
           <div className="flex w-full items-center justify-between">
             <div className="text-foreground text-base font-medium">
               {activeItem?.title}{" "}
@@ -204,7 +204,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         </SidebarHeader>
         <SidebarContent>
           <SidebarGroup className="px-0">
-            <SidebarGroupContent className="px-4">
+            <SidebarGroupContent className="px-3">
               <SidebarMenu>
                 {activeItem?.subItems?.map((subItem) => (
                   <SidebarMenuItem key={subItem.title}>
