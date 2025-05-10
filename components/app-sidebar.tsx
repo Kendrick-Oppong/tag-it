@@ -6,7 +6,6 @@ import {
   FolderKanban,
   Search,
   Clock,
-  Settings,
   FolderPlus,
   Plus,
 } from "lucide-react";
@@ -26,6 +25,8 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 import { Button } from "./ui/button";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const data = {
   user: {
@@ -36,17 +37,17 @@ const data = {
   navMain: [
     {
       title: "Bookmarks",
-      url: "/bookmarks",
+      url: "/dashboard/bookmarks",
       icon: Bookmark,
       isActive: true,
       subItems: [
-        { title: "All", url: "/bookmarks/all" },
-        { title: "Favorites", url: "/bookmarks/favorites" },
+        { title: "All", url: "/dashboard/bookmarks/all" },
+        { title: "Favorites", url: "/dashboard/bookmarks/favorites" },
       ],
     },
     {
       title: "Collections",
-      url: "/collections",
+      url: "/dashboard/collections",
       icon: FolderKanban,
       isActive: false,
       subItems: [],
@@ -54,21 +55,21 @@ const data = {
 
     {
       title: "Revisit Later",
-      url: "/reminders",
+      url: "/dashboard/reminders",
       icon: Clock,
       isActive: false,
       subItems: [
-        { title: "Today", url: "/reminders/today" },
-        { title: "This Week", url: "/reminders/week" },
-        { title: "Overdue", url: "/reminders/overdue" },
+        { title: "Today", url: "/dashboard/reminders/today" },
+        { title: "This Week", url: "/dashboard/reminders/week" },
+        { title: "Overdue", url: "/dashboard/reminders/overdue" },
       ],
     },
   ],
-  mails: [],
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const [activeItem, setActiveItem] = React.useState(data.navMain[0]);
+  const router = useRouter();
   const { setOpen } = useSidebar();
 
   return (
@@ -96,6 +97,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                       onClick={() => {
                         setActiveItem(item);
                         setOpen(true);
+                        if (item.subItems.length > 0) {
+                          router.push(item.subItems[0].url);
+                        }
                       }}
                       isActive={activeItem?.title === item.title}
                       className="px-2.5 md:px-2"
@@ -172,7 +176,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                       asChild
                       className="hover:text-primary hover:bg-secondary/30 dark:hover:bg-muted rounded-md py-2"
                     >
-                      <a href={subItem.url}>{subItem.title}</a>
+                      <Link href={subItem.url}>{subItem.title}</Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 ))}
