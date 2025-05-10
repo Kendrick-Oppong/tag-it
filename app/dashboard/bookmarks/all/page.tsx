@@ -1,16 +1,7 @@
-"use client";
-
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -24,24 +15,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Badge } from "@/components/ui/badge";
-import {
-  Search,
-  Star,
-  Calendar,
-  Folder,
-  SortAsc,
-  Filter,
-  Globe,
-  Pencil,
-  Copy,
-  Trash,
-} from "lucide-react";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
+import { Search, SortAsc, Filter } from "lucide-react";
+
+import BookMarkCard from "@/components/shared/card/card.component";
 
 const mockBookmarks = [
   {
@@ -156,114 +132,8 @@ export default function AllBookmarks() {
       {/* Bookmark Grid */}
       <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {mockBookmarks.map((bookmark) => (
-          <Card
-            key={bookmark.id}
-            className="relative border bg-background gap-0 pt-5 pb-2 space-y-4"
-          >
-            <CardHeader>
-              <div className="flex items-start gap-3">
-                {bookmark.faviconUrl ? (
-                  <img
-                    src={bookmark.faviconUrl}
-                    alt={`${bookmark.title} favicon`}
-                    className="h-6 w-6 rounded-full"
-                  />
-                ) : (
-                  <Globe className="h-6 w-6 text-gray-400" />
-                )}
-                <div className="flex-1">
-                  <div className="flex justify-between items-start">
-                    <CardTitle className="text-lg text-primary truncate">
-                      {bookmark.title}
-                    </CardTitle>
-                    {bookmark.isFavorite && (
-                      <Star className="h-5 w-5 text-yellow-400 fill-current" />
-                    )}
-                  </div>
-                  <CardDescription className="text-gray-400 truncate">
-                    <a
-                      href={bookmark.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="hover:underline"
-                    >
-                      {bookmark.url}
-                    </a>
-                  </CardDescription>
-                </div>
-              </div>
-            </CardHeader>
-            <CardContent>
-              {bookmark.thumbnailUrl && (
-                <img
-                  src={bookmark.thumbnailUrl}
-                  alt={`${bookmark.title} thumbnail`}
-                  className="w-full h-40 object-cover rounded-md mb-3"
-                />
-              )}
-              <p className="text-lg font-semibold line-clamp-2">
-                {bookmark.description || "No description"}
-              </p>
-            </CardContent>
-            <CardFooter className="mt-auto w-full flex flex-col space-y-3">
-              <div className="flex items-center w-full justify-between">
-                <div>
-                  {bookmark.collection && (
-                    <Badge variant="outline" className="bg-border">
-                      <Folder className="h-3 w-3 mr-1" />
-                      {bookmark.collection.name}
-                    </Badge>
-                  )}
-                </div>
-                <div>
-                  {bookmark.revisitAt && (
-                    <Badge variant="outline" >
-                      <Calendar className="h-3 w-3 mr-1" />
-                      {new Date(bookmark.revisitAt).toLocaleDateString()}
-                    </Badge>
-                  )}
-                </div>
-              </div>
-              <div className="flex justify-between w-full text-primary">
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <Button variant="ghost" size="icon">
-                      <Pencil className="h-4 w-4" />
-                    </Button>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>Edit Bookmark</p>
-                  </TooltipContent>
-                </Tooltip>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <Button variant="ghost" size="icon">
-                      <Trash className="h-4 w-4 text-destructive" />
-                    </Button>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>Delete Bookmark</p>
-                  </TooltipContent>
-                </Tooltip>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <Button variant="ghost" size="icon">
-                      <Copy className="h-4 w-4" />
-                    </Button>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>Copy Link</p>
-                  </TooltipContent>
-                </Tooltip>
-              </div>
-            </CardFooter>
-          </Card>
+          <BookMarkCard bookmark={bookmark} key={bookmark.id} />
         ))}
-        {mockBookmarks.length === 0 && (
-          <div className="col-span-full text-center text-gray-500 py-12">
-            No bookmarks yet. Create one to get started!
-          </div>
-        )}
       </section>
     </main>
   );
