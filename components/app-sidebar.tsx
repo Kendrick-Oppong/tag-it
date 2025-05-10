@@ -4,9 +4,7 @@ import * as React from "react";
 import {
   Bookmark,
   FolderKanban,
-  // BrainCircuit,
   Search,
-  Tags,
   Clock,
   Settings,
   FolderPlus,
@@ -44,9 +42,6 @@ const data = {
       subItems: [
         { title: "All", url: "/bookmarks/all" },
         { title: "Favorites", url: "/bookmarks/favorites" },
-        { title: "Uncategorized", url: "/bookmarks/uncategorized" },
-        { title: "Recently Added", url: "/bookmarks/recent" },
-        // { title: "Archived", url: "/bookmarks/archived" },
       ],
     },
     {
@@ -56,39 +51,7 @@ const data = {
       isActive: false,
       subItems: [],
     },
-    // {
-    //   title: "Suggestions",
-    //   url: "/suggestions",
-    //   icon: BrainCircuit,
-    //   isActive: false,
-    //   subItems: [
-    //     { title: "Tag-Based", url: "/suggestions/tags" },
-    //     { title: "Trending Links", url: "/suggestions/trending" },
-    //     { title: "Related Content", url: "/suggestions/related" },
-    //   ],
-    // },
-    {
-      title: "Search",
-      url: "/search",
-      icon: Search,
-      isActive: false,
-      subItems: [
-        { title: "Recent Searches", url: "/search/recent" },
-        { title: "Pinned Results", url: "/search/pinned" },
-        { title: "Advanced Filters", url: "/search/filters" },
-      ],
-    },
-    {
-      title: "Tags",
-      url: "/tags",
-      icon: Tags,
-      isActive: false,
-      subItems: [
-        { title: "Auto-Tagged", url: "/tags/auto" },
-        { title: "Custom Tags", url: "/tags/custom" },
-        { title: "Most Used", url: "/tags/popular" },
-      ],
-    },
+
     {
       title: "Revisit Later",
       url: "/reminders",
@@ -98,17 +61,6 @@ const data = {
         { title: "Today", url: "/reminders/today" },
         { title: "This Week", url: "/reminders/week" },
         { title: "Overdue", url: "/reminders/overdue" },
-      ],
-    },
-    {
-      title: "Settings",
-      url: "/settings",
-      icon: Settings,
-      isActive: false,
-      subItems: [
-        { title: "Account", url: "/settings/account" },
-        { title: "Appearance", url: "/settings/appearance" },
-        { title: "Import/Export", url: "/settings/import-export" },
       ],
     },
   ],
@@ -156,6 +108,15 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 <SidebarMenuItem>
                   <SidebarMenuButton
                     tooltip={{
+                      children: "Global Search",
+                      hidden: false,
+                    }}
+                    className="px-2.5 md:px-2 mb-2"
+                  >
+                    <Search className="size-10" />
+                  </SidebarMenuButton>
+                  <SidebarMenuButton
+                    tooltip={{
                       children: "Add Bookmark",
                       hidden: false,
                     }}
@@ -187,11 +148,14 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 ({activeItem?.subItems?.length || 0})
               </span>
             </div>
-            <div className="flex items-center gap-2 text-primary">
-              <Button variant="ghost" title="Create Subfolder">
-                <FolderPlus className="size-5" strokeWidth={2} size={18} />
-              </Button>
-            </div>
+
+            {activeItem.title === "Collections" && (
+              <div className="flex items-center gap-2 text-primary">
+                <Button variant="ghost" title="Create Subfolder">
+                  <FolderPlus className="size-5" strokeWidth={2} size={18} />
+                </Button>
+              </div>
+            )}
           </div>
           <SidebarInput
             placeholder={`Search ${activeItem?.title.toLowerCase()}...`}
