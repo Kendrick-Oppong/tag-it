@@ -1,14 +1,7 @@
 "use client";
 
 import * as React from "react";
-import {
-  Bookmark,
-  FolderKanban,
-  Search,
-  Clock,
-  FolderPlus,
-  Plus,
-} from "lucide-react";
+import { Search, FolderPlus, Plus } from "lucide-react";
 
 import { NavUser } from "@/components/nav-user";
 import {
@@ -27,50 +20,14 @@ import {
 import { Button } from "./ui/button";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-
-const data = {
-  user: {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
-  },
-  navMain: [
-    {
-      title: "Bookmarks",
-      url: "/dashboard/bookmarks",
-      icon: Bookmark,
-      isActive: true,
-      subItems: [
-        { title: "All", url: "/dashboard/bookmarks/all" },
-        { title: "Favorites", url: "/dashboard/bookmarks/favorites" },
-      ],
-    },
-    {
-      title: "Collections",
-      url: "/dashboard/collections",
-      icon: FolderKanban,
-      isActive: false,
-      subItems: [],
-    },
-
-    {
-      title: "Revisit Later",
-      url: "/dashboard/reminders",
-      icon: Clock,
-      isActive: false,
-      subItems: [
-        { title: "Today", url: "/dashboard/reminders/today" },
-        { title: "This Week", url: "/dashboard/reminders/week" },
-        { title: "Overdue", url: "/dashboard/reminders/overdue" },
-      ],
-    },
-  ],
-};
+import { navigationData } from "@/constants/dashboard.constants";
+import { useBreadcrumb } from "@/hooks/use-Breadcrumb";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-  const [activeItem, setActiveItem] = React.useState(data.navMain[0]);
+  const [activeItem, setActiveItem] = React.useState(navigationData.navMain[0]);
   const router = useRouter();
   const { setOpen } = useSidebar();
+  useBreadcrumb();
 
   return (
     <Sidebar
@@ -87,7 +44,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           <SidebarGroup>
             <SidebarGroupContent className="px-1.5 md:px-0">
               <SidebarMenu className="space-y-3">
-                {data.navMain.map((item) => (
+                {navigationData.navMain.map((item) => (
                   <SidebarMenuItem key={item.title}>
                     <SidebarMenuButton
                       tooltip={{
@@ -134,7 +91,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           </SidebarGroup>
         </SidebarContent>
         <SidebarFooter>
-          <NavUser user={data.user} />
+          <NavUser user={navigationData.user} />
         </SidebarFooter>
       </Sidebar>
 
