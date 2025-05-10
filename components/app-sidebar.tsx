@@ -11,7 +11,6 @@ import {
   SidebarGroup,
   SidebarGroupContent,
   SidebarHeader,
-  SidebarInput,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
@@ -102,12 +101,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       >
         <SidebarHeader className="gap-3.5 border-b px-3 py-3">
           <div className="flex w-full items-center justify-between">
-            <div className="text-foreground text-base font-medium">
-              {activeItem?.title}{" "}
-              <span className="text-destructive">
-                {" "}
-                ({activeItem?.subItems?.length || 0})
-              </span>
+            <div className="text-base font-medium">
+              {activeItem?.title}
             </div>
 
             {activeItem.title === "Collections" && (
@@ -118,10 +113,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               </div>
             )}
           </div>
-          <SidebarInput
-            placeholder={`Search ${activeItem?.title.toLowerCase()}...`}
-            className="rounded-md h-10 border-primary mt-2"
-          />
         </SidebarHeader>
         <SidebarContent>
           <SidebarGroup className="px-0">

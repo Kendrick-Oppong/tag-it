@@ -121,7 +121,7 @@
 
 @layer base {
   html {
-    @apply scroll-smooth;
+    @apply scroll-smooth max-w-[1440px];
   }
   * {
     @apply border-border outline-ring/50;

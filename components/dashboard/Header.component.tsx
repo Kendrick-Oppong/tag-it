@@ -21,7 +21,7 @@ const HeaderComponent = () => {
         <Input
           type="search"
           placeholder="Search all bookmarks..."
-          className="border-primary"
+          className="border-primary dark:border-border"
         />
       </div>
       <div className="flex justify-between gap-4 items-center">

@@ -6,12 +6,12 @@ import Header from "@/components/shared/header/Header.component";
 
 export default function Home() {
   return (
-    <>
+    <main className="mt-16 relative">
       <Header />
       <HeroComponent />
       <FeaturesComponent />
       <TestimonialComponent />
       <Footer />
-    </>
+    </main>
   );
 }
