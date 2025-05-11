@@ -9,6 +9,7 @@ import {
 import { BreadcrumbComponent } from "@/components/shared/breadcrumb/breadcrumb.component";
 
 import { Bai_Jamjuree } from "next/font/google";
+import FilteringComponent from "@/components/shared/filter/filtering.component";
 
 const bai_Jamjuree = Bai_Jamjuree({
   subsets: ["latin"],
@@ -36,6 +37,7 @@ export default function DashboardLayout({
               <BreadcrumbComponent />
             </header>
             <section className="mt-36 flex flex-1 flex-col gap-4 p-3">
+              <FilteringComponent />
               {children}
             </section>
           </SidebarInset>
