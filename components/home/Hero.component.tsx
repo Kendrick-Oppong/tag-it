@@ -9,7 +9,7 @@ const HeroComponent = () => {
     <section className="relative w-full py-16 px-4 md:px-10 dark:bg-gradient-to-b from-background to-muted/20">
       <BackgroundPattern />
       {/* <div className="h-full hero-bg  w-full absolute -z-10 opacity-80"></div> */}
-      <div className="max-w-6xl mx-auto text-center relative z-[100]">
+      <div className="max-w-6xl mt-8 mx-auto text-center relative z-[100]">
         <h1 className="text-4xl md:text-6xl font-extrabold   leading-tight tracking-tight">
           Organize Your Web <br />
           <p className="text-primary bg-text-clip">Your Way</p>

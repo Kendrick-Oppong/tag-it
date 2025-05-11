@@ -121,7 +121,7 @@
 
 @layer base {
   html {
-    @apply scroll-smooth max-w-[1440px];
+    @apply scroll-smooth;
   }
   * {
     @apply border-border outline-ring/50;
@@ -156,5 +156,3 @@
     @apply bg-gradient-to-r from-blue-600 via-purple-500 to-pink-500 text-transparent bg-clip-text;
   }
 }
-
-

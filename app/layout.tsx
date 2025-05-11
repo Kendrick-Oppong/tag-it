@@ -30,7 +30,7 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <main className="mt-16 relative"> {children}</main>
+            <main className="relative"> {children}</main>
           </ThemeProvider>
         </body>
       </html>

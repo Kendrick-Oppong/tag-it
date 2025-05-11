@@ -6,7 +6,7 @@ import Header from "@/components/shared/header/Header.component";
 
 export default function Home() {
   return (
-    <main className="mt-16 relative">
+    <main className="mt-10 relative">
       <Header />
       <HeroComponent />
       <FeaturesComponent />

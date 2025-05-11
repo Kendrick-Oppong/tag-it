@@ -9,12 +9,14 @@ import {
 import { BreadcrumbComponent } from "@/components/shared/breadcrumb/breadcrumb.component";
 
 import FilteringComponent from "@/components/shared/filter/filtering.component";
+import { saveUser } from "@/lib/create-user.action";
 
-export default function DashboardLayout({
+export default async function DashboardLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  await saveUser();
   return (
     <>
       <HeaderComponent />
