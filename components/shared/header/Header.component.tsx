@@ -1,6 +1,11 @@
-import Link from "next/link";import { navLinks } from "@/constants/header.constants";
+import Link from "next/link";
+import { navLinks } from "@/constants/header.constants";
 import { ThemeToggle } from "../theme/theme-toggle";
 import HeaderMobileComponent from "./header.mobile.component";
+import { Button } from "@/components/ui/button";
+import {
+  LoginLink,
+} from "@kinde-oss/kinde-auth-nextjs/components";
 
 const Header = () => {
   return (
@@ -24,11 +29,14 @@ const Header = () => {
             <Link href={`${link.href}`}>{link.name}</Link>
           </li>
         ))}
+        <li className="font-medium">
+          <Button>
+            <LoginLink>Sign In</LoginLink>
+          </Button>
+        </li>
       </ul>
 
       <div className="flex justify-between gap-4 items-center">
-      
-
         <ThemeToggle />
         <div className="w-8 h-8 rounded-full bg-muted flex items-center justify-center">
           <span className="text-foreground">N</span>

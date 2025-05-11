@@ -47,13 +47,10 @@ const mockBookmarks = [
 
 export default function AllBookmarks() {
   return (
-    <main className="p-4">
-      {/* Bookmark Grid */}
-      <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {mockBookmarks.map((bookmark) => (
-          <BookMarkCard bookmark={bookmark} key={bookmark.id} />
-        ))}
-      </section>
-    </main>
+    <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {mockBookmarks.map((bookmark) => (
+        <BookMarkCard bookmark={bookmark} key={bookmark.id} />
+      ))}
+    </section>
   );
 }

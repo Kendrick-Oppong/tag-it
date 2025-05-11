@@ -23,7 +23,7 @@ const HeroComponent = () => {
         </p>
         <div className="my-5">
           <Button className="cursor-pointer" size="lg">
-            <Link href="dashboard/bookmarks/all"> Get Started</Link>
+            <Link href="dashboard"> Get Started</Link>
           </Button>
         </div>
       </div>
