@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -14,8 +16,18 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Filter, Search, SortAsc } from "lucide-react";
+import { usePathname } from "next/navigation";
 
 const FilteringComponent = () => {
+  const pathname = usePathname();
+
+  // Regex to hide on /create or /edit routes
+  const hideFilter = /\/dashboard\/bookmarks\/(create|edit)/.test(pathname);
+
+  if (hideFilter) {
+    return null;
+  }
+
   return (
     <header className="mb-8">
       <div className="flex items-center justify-between mb-6">

@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Search, FolderPlus, Plus } from "lucide-react";
+import { Search, FolderPlus,} from "lucide-react";
 
 import { NavUser } from "@/components/nav-user";
 import {
@@ -20,13 +20,11 @@ import { Button } from "./ui/button";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { navigationData } from "@/constants/dashboard.constants";
-import { useBreadcrumb } from "@/hooks/use-Breadcrumb";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const [activeItem, setActiveItem] = React.useState(navigationData.navMain[0]);
   const router = useRouter();
   const { setOpen } = useSidebar();
-  useBreadcrumb();
 
   return (
     <Sidebar
@@ -58,9 +56,18 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                         }
                       }}
                       isActive={activeItem?.title === item.title}
-                      className="px-2.5 md:px-2"
+                      className={`px-2.5 md:px-2 `}
                     >
-                      <item.icon />
+                      <item.icon
+                        strokeWidth={`${
+                          item.subItems[0]?.title === "Create" ? 3 : ""
+                        }`}
+                        className={`${
+                          item.subItems[0]?.title === "Create"
+                            ? "text-primary font-bold"
+                            : ""
+                        }`}
+                      />
                       <span>{item.title}</span>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
@@ -74,15 +81,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     className="px-2.5 md:px-2 mb-2"
                   >
                     <Search className="size-10" />
-                  </SidebarMenuButton>
-                  <SidebarMenuButton
-                    tooltip={{
-                      children: "Add Bookmark",
-                      hidden: false,
-                    }}
-                    className="px-2.5 md:px-2"
-                  >
-                    <Plus className="size-10 text-primary" strokeWidth={3} />
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               </SidebarMenu>
@@ -101,9 +99,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       >
         <SidebarHeader className="gap-3.5 border-b px-3 py-3">
           <div className="flex w-full items-center justify-between">
-            <div className="text-base font-medium">
-              {activeItem?.title}
-            </div>
+            <div className="text-base font-medium">{activeItem?.title}</div>
 
             {activeItem.title === "Collections" && (
               <div className="flex items-center gap-2 text-primary">

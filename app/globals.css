@@ -71,7 +71,7 @@
     229,
     100%,
     61.66%
-  ); /* Adjusted 103% to 100% as saturation maxes at 100% */
+  ); 
   --radius: 0.5rem;
   --sidebar: hsl(229, 57%, 100%);
   --sidebar-foreground: hsl(229, 63%, 4%);

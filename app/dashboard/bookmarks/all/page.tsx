@@ -1,4 +1,4 @@
-import BookMarkCard from "@/components/shared/card/card.component";
+import BookMarkCard from "@/components/shared/card/card";
 
 const mockBookmarks = [
   {

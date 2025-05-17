@@ -1,6 +1,4 @@
-// src/components/BreadcrumbComponent.js
 "use client";
-
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -13,8 +11,6 @@ import { useBreadcrumb } from "@/hooks/use-Breadcrumb";
 
 export function BreadcrumbComponent() {
   const { category, subcategory, capitalize } = useBreadcrumb();
-
-  // Capitalize for display purposes
 
   return (
     <Breadcrumb>

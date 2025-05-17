@@ -1,10 +1,10 @@
 import Link from "next/link";
 import React from "react";
 import { ThemeToggle } from "@/components/shared/theme/theme-toggle";
-import HeaderMobileComponent from "@/components/shared/header/header.mobile.component";
 import { Input } from "@/components/ui/input";
-import { Button } from "../ui/button";
+import { Button } from "@/components/ui/button";
 import { Search, Plus } from "lucide-react";
+import HeaderMobileComponent from "../shared/header/header.mobile.component";
 
 const HeaderComponent = () => {
   return (
@@ -34,9 +34,11 @@ const HeaderComponent = () => {
         >
           <Search size={20} />
         </Button>
-        <Button variant="ghost" title="Add Bookmark">
-          <Plus className="size-6 text-primary" strokeWidth={2} size={18} />
-        </Button>
+        <Link href='/dashboard/bookmarks/create'>
+          <Button variant="ghost" title="Add Bookmark">
+            <Plus className="size-6 text-primary" strokeWidth={2} size={18} />
+          </Button>
+        </Link>
         <ThemeToggle />
         <div className="w-8 h-8 rounded-full bg-muted flex items-center justify-center">
           <span className="text-foreground font-bold">N</span>
