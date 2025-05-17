@@ -18,6 +18,7 @@ import { Textarea } from "@/components/ui/textarea";
 import BookmarkCardPreview from "@/components/shared/card/preview";
 import { bookmarkSchema } from "@/validators/form";
 import { useFetchBookmarkMetadata } from "@/hooks/useFetchBookmarkMetadata";
+import { Asterisk } from "lucide-react";
 
 export default function CreateBookmark() {
   const form = useForm({
@@ -58,7 +59,9 @@ export default function CreateBookmark() {
                 name="title"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Title</FormLabel>
+                    <FormLabel>
+                      Title <Asterisk size={14} />
+                    </FormLabel>
                     <FormControl>
                       <Input placeholder="Enter bookmark title" {...field} />
                     </FormControl>
@@ -71,7 +74,9 @@ export default function CreateBookmark() {
                 name="url"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>URL</FormLabel>
+                    <FormLabel>
+                      URL <Asterisk size={14} />
+                    </FormLabel>
                     <FormControl>
                       <Input
                         type="url"
