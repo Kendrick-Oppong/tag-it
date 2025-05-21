@@ -54,19 +54,26 @@ export default function CreateBookmark({
   useFetchBookmarkMetadata(url, form);
 
   const { execute, result } = useAction(createBookmark, {
-    onError: (error) => {
+    onError: ({ error }) => {
+      if (error.validationErrors) {
+        console.error("Validation errors:", error.validationErrors);
+      }
+      if (error.serverError) {
+        console.error("Server error:", error.serverError);
+      }
+
       console.error("Error creating bookmark:", error);
     },
+
     onSuccess: (data) => {
       console.log("Bookmark created successfully:", data);
     },
   });
 
   function onSubmit(values: z.infer<typeof bookmarkSchema>) {
-    console.log("Bookmark form data:", values);
     execute(values);
-    console.log("result.serverError", result.serverError);
-    console.log("result.validationErrors", result.validationErrors);
+    console.log("result.serverError", result);
+    console.log("result.validationErrors", result);
   }
 
   return (
