@@ -9,13 +9,21 @@ import {
 import { BreadcrumbComponent } from "@/components/shared/breadcrumb/breadcrumb.component";
 
 import FilteringComponent from "@/components/shared/filter/filtering.component";
-import { saveUser } from "@/lib/create-user.action";
+import { saveUser } from "@/lib/actions/create-user.action";
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+import { redirect } from "next/navigation";
 
 export default async function DashboardLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const { isAuthenticated } = getKindeServerSession();
+
+  if (!(await isAuthenticated())) {
+    redirect("/api/auth/login");
+  }
+
   await saveUser();
   return (
     <>

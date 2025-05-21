@@ -18,10 +18,13 @@ export function useFetchBookmarkMetadata(
     debounceRef.current = setTimeout(async () => {
       try {
         const preview = await getLinkPreview(url);
+        console.log("preview", preview);
         if ("images" in preview) {
-          form.setValue("thumbnailUrl", preview.images[0] ?? "");
-          form.setValue("description", preview.description ?? "");
-          form.setValue("faviconUrl", preview.favicons[0] ?? "");
+          form.setValue("title", preview.siteName ?? "");
+          form.setValue("thumbnailUrl", preview.images[0]);
+          form.setValue("description", preview.description);
+          form.setValue("faviconUrl", preview.favicons[0]);
+          form.setValue("metadata", JSON.stringify(preview, null, 2));
         }
       } catch (error) {
         console.error("Failed to fetch metadata:", error);

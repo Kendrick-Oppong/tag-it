@@ -8,6 +8,7 @@ import {
   CardFooter,
 } from "@/components/ui/card";
 import { bookmarkSchema } from "@/validators/form";
+import { Collection } from "@prisma/client";
 import { Star, Folder, Calendar } from "lucide-react";
 import { z } from "zod";
 
@@ -15,7 +16,15 @@ type Bookmark = z.infer<typeof bookmarkSchema>;
 
 export default function BookmarkCardPreview({
   bookmark,
-}: Readonly<{ bookmark: Bookmark }>) {
+  collections,
+}: Readonly<{
+  bookmark: Bookmark;
+  collections: Collection[];
+}>) {
+  const collectionName =
+    collections.find((c) => c.id === bookmark.collectionId)?.name ||
+    "Uncategorized";
+
   return (
     <Card className="relative border bg-background gap-0 pt-5 pb-2 space-y-4">
       <CardHeader>
@@ -26,6 +35,9 @@ export default function BookmarkCardPreview({
             }
             alt={`${bookmark.title} favicon`}
             className="h-6 w-6 rounded-full"
+            onError={(e) =>
+              (e.currentTarget.src = "https://avatar.vercel.sh/rauchg?size=24")
+            }
           />
 
           <div className="flex-1">
@@ -54,11 +66,14 @@ export default function BookmarkCardPreview({
         <img
           src={bookmark.thumbnailUrl || "https://placehold.net/10-600x800.png"}
           alt={`${bookmark.title} thumbnail`}
-          className="w-full h-40 object-cover rounded-md mb-3"
+          className="w-full h-48 object-cover rounded-md mb-3"
+          onError={(e) =>
+            (e.currentTarget.src = "https://placehold.net/10-600x800.png")
+          }
         />
 
         <p className="text-base font-semibold line-clamp-2">
-          {bookmark.description || "No description"}
+          {bookmark.description ?? "No description"}
         </p>
       </CardContent>
       <CardFooter className="mt-auto w-full flex flex-col space-y-3">
@@ -66,7 +81,7 @@ export default function BookmarkCardPreview({
           <div>
             <Badge variant="outline" className="bg-border">
               <Folder className="h-3 w-3 mr-1" />
-              Uncategorized
+              {collectionName || "Uncategorized"}
             </Badge>
           </div>
           <div>

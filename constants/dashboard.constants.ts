@@ -1,4 +1,4 @@
-import { Bookmark, Clock, FolderKanban, Plus } from "lucide-react";
+import { Bookmark, FolderKanban, Plus } from "lucide-react";
 
 export const navigationData = {
   user: {
@@ -25,17 +25,17 @@ export const navigationData = {
       subItems: [],
     },
 
-    {
-      title: "Revisit Later",
-      url: "/dashboard/reminders",
-      icon: Clock,
-      isActive: false,
-      subItems: [
-        { title: "Today", url: "/dashboard/reminders/today" },
-        { title: "This Week", url: "/dashboard/reminders/week" },
-        { title: "Overdue", url: "/dashboard/reminders/overdue" },
-      ],
-    },
+    // {
+    //   title: "Revisit Later",
+    //   url: "/dashboard/reminders",
+    //   icon: Clock,
+    //   isActive: false,
+    //   subItems: [
+    //     { title: "Today", url: "/dashboard/reminders/today" },
+    //     { title: "This Week", url: "/dashboard/reminders/week" },
+    //     { title: "Overdue", url: "/dashboard/reminders/overdue" },
+    //   ],
+    // },
     {
       title: "New Bookmark",
       url: "/dashboard/bookmarks",

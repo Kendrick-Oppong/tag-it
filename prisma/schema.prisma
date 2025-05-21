@@ -35,12 +35,11 @@ model User {
 model Bookmark {
   id            String   @id @default(uuid())
   title         String   // Bookmark title
-  url           String   @unique // Bookmark URL
+  url           String    // Bookmark URL
   description   String?  // Optional notes or description
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
   isFavorite    Boolean  @default(false) // For "Favorites" subcategory
-  revisitAt     DateTime? // For "Revisit Later" subcategories (nullable)
   faviconUrl    String?  // URL for favicon (optional, for UI display)
   thumbnailUrl  String?  // URL for thumbnail/preview image (optional, for UI display)
   metadata      Json?    // Store additional metadata (e.g., page title, description from URL)
@@ -55,7 +54,6 @@ model Bookmark {
   @@index([userId], name: "bookmark_userId_idx") // For user-based lookups
   @@index([collectionId], name: "bookmark_collectionId_idx") // For collection-based lookups
   @@index([createdAt], name: "bookmark_createdAt_idx") // For sorting by creation date
-  @@index([revisitAt], name: "bookmark_revisitAt_idx") // For "Revisit Later"
   @@index([title], name: "bookmark_title_idx") // For future searches
   @@index([description], name: "bookmark_description_idx") // For future searches
 }
