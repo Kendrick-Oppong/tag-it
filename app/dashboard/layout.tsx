@@ -8,7 +8,6 @@ import {
 } from "@/components/ui/sidebar";
 import { BreadcrumbComponent } from "@/components/shared/breadcrumb/breadcrumb.component";
 
-import FilteringComponent from "@/components/shared/filter/filtering.component";
 import { saveUser } from "@/lib/actions/create-user.action";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { redirect } from "next/navigation";
@@ -39,8 +38,7 @@ export default async function DashboardLayout({
             />
             <BreadcrumbComponent />
           </header>
-          <section className="mt-16 flex flex-1 flex-col gap-4 py-3 px-5">
-            <FilteringComponent />
+          <section className="mt-24 flex flex-1 flex-col gap-4 py-3 px-5">
             {children}
           </section>
         </SidebarInset>

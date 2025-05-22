@@ -30,13 +30,6 @@ const FilteringComponent = () => {
 
   return (
     <header className="mb-8">
-      <div className="flex items-center justify-between mb-6">
-        <h1 className="text-4xl font-bold">All Bookmarks</h1>
-        <p className="font-semibold">
-          Total <span className="text-destructive">(3)</span>
-        </p>
-      </div>
-
       {/* Search and Sorting/Filtering Controls */}
       <div className="flex flex-col sm:flex-row sm:items-center gap-4">
         <div className="relative flex-1">
@@ -51,7 +44,7 @@ const FilteringComponent = () => {
             <DropdownMenuTrigger asChild className="">
               <Button
                 variant="outline"
-                className="border-primary dark:border-border font-normal text-muted-foreground text-base"
+                className="h-10 border-primary dark:border-border font-normal text-muted-foreground text-base"
               >
                 <SortAsc className="mr-2 h-4 w-4" />
                 Sort

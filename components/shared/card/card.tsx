@@ -14,33 +14,22 @@ import {
   TooltipContent,
   TooltipProvider,
 } from "@/components/ui/tooltip";
+import { Bookmark, Collection } from "@prisma/client";
 
 import {
   Globe,
   Star,
   Folder,
-  Calendar,
   Pencil,
   Trash,
   Copy,
 } from "lucide-react";
+import Image from "next/image";
 import React from "react";
 
-interface Bookmark {
-  id: string;
-  title: string;
-  url: string;
-  description: string;
-  createdAt: string;
-  updatedAt: string;
-  isFavorite: boolean;
-  revisitAt: string | null;
-  faviconUrl: string;
-  thumbnailUrl: string;
-  collection: { id: string; name: string } | null;
-}
+type BookmarkProps = Bookmark & { collection: Collection | null };
 
-const BookMarkCard = ({ bookmark }: { bookmark: Bookmark }) => {
+const BookMarkCard = ({ bookmark }: { bookmark: BookmarkProps }) => {
   return (
     <Card
       key={bookmark.id}
@@ -49,7 +38,9 @@ const BookMarkCard = ({ bookmark }: { bookmark: Bookmark }) => {
       <CardHeader>
         <div className="flex items-start gap-3">
           {bookmark.faviconUrl ? (
-            <img
+            <Image
+              width={24}
+              height={24}
               src={bookmark.faviconUrl}
               alt={`${bookmark.title} favicon`}
               className="h-6 w-6 rounded-full"
@@ -81,33 +72,29 @@ const BookMarkCard = ({ bookmark }: { bookmark: Bookmark }) => {
       </CardHeader>
       <CardContent>
         {bookmark.thumbnailUrl && (
-          <img
-            src={bookmark.thumbnailUrl}
+          <Image
+            src={
+              bookmark.thumbnailUrl || "https://placehold.net/10-600x800.png"
+            }
+            height={192}
+            width={192}
+            priority
+            quality={85}
             alt={`${bookmark.title} thumbnail`}
-            className="w-full h-40 object-cover rounded-md mb-3"
+            className="w-full h-48 rounded-md mb-3 border border-border"
           />
         )}
-        <p className="text-lg font-semibold line-clamp-2">
+        <p className="text-base font-semibold line-clamp-2">
           {bookmark.description || "No description"}
         </p>
       </CardContent>
       <CardFooter className="mt-auto w-full flex flex-col space-y-3">
         <div className="flex items-center w-full justify-between">
           <div>
-            {bookmark.collection && (
-              <Badge variant="outline" className="bg-border">
-                <Folder className="h-3 w-3 mr-1" />
-                {bookmark.collection.name}
-              </Badge>
-            )}
-          </div>
-          <div>
-            {bookmark.revisitAt && (
-              <Badge variant="outline">
-                <Calendar className="h-3 w-3 mr-1" />
-                {new Date(bookmark.revisitAt).toLocaleDateString()}
-              </Badge>
-            )}
+            <Badge variant="outline" className="bg-border">
+              <Folder className="h-3 w-3 mr-1" />
+              {bookmark.collection?.name}
+            </Badge>
           </div>
         </div>
         <div className="flex justify-between w-full text-primary">

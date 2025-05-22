@@ -1,56 +1,44 @@
 import BookMarkCard from "@/components/shared/card/card";
+import FilteringComponent from "@/components/shared/filter/filtering.component";
+import { fetchUserBookmarks } from "@/lib/api";
+import { BookOpen } from "lucide-react";
 
-const mockBookmarks = [
-  {
-    id: "1",
-    title: "React Docs",
-    url: "https://react.dev",
-    description: "Official React documentation",
-    createdAt: "2025-05-01T00:00:00.000Z",
-    updatedAt: "2025-05-01T00:00:00.000Z",
-    isFavorite: true,
-    revisitAt: "2025-05-15T00:00:00.000Z",
-    faviconUrl: "https://react.dev/favicon.ico",
-    thumbnailUrl:
-      "https://plus.unsplash.com/premium_photo-1682091872078-46c5ed6a006d?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8ZnJlZSUyMGltYWdlc3xlbnwwfHwwfHx8MA%3D%3D",
-    collection: { id: "c1", name: "Work" },
-  },
-  {
-    id: "2",
-    title: "Tailwind CSS",
-    url: "https://tailwindcss.com",
-    description: "A utility-first CSS framework",
-    createdAt: "2025-05-02T00:00:00.000Z",
-    updatedAt: "2025-05-02T00:00:00.000Z",
-    isFavorite: false,
-    revisitAt: null,
-    faviconUrl: "https://tailwindcss.com/favicon.ico",
-    thumbnailUrl:
-      "https://plus.unsplash.com/premium_photo-1682091872078-46c5ed6a006d?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8ZnJlZSUyMGltYWdlc3xlbnwwfHwwfHx8MA%3D%3D",
-    collection: null,
-  },
-  {
-    id: "3",
-    title: "Next.js Guide",
-    url: "https://nextjs.org",
-    description: "The React framework for production",
-    createdAt: "2025-05-03T00:00:00.000Z",
-    updatedAt: "2025-05-03T00:00:00.000Z",
-    isFavorite: true,
-    revisitAt: "2025-05-20T00:00:00.000Z",
-    faviconUrl: "https://tailwindcss.com/favicon.ico",
-    thumbnailUrl:
-      "https://plus.unsplash.com/premium_photo-1682091872078-46c5ed6a006d?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8ZnJlZSUyMGltYWdlc3xlbnwwfHwwfHx8MA%3D%3D",
-    collection: { id: "c2", name: "Learning" },
-  },
-];
+export default async function AllBookmarks() {
+  const { bookmarks } = await fetchUserBookmarks();
+  const hasBookmarks = bookmarks && bookmarks.length > 0;
 
-export default function AllBookmarks() {
   return (
-    <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      {mockBookmarks.map((bookmark) => (
-        <BookMarkCard bookmark={bookmark} key={bookmark.id} />
-      ))}
-    </section>
+    <div className="p-6">
+      {hasBookmarks ? (
+        <>
+          <div className="flex items-center justify-between my-4">
+            <h1 className="text-3xl font-bold">All Bookmarks</h1>
+            <p className="font-semibold">
+              Total{" "}
+              <span className="text-destructive">({bookmarks.length})</span>
+            </p>
+          </div>
+          <FilteringComponent />
+          <section className="grid grid-cols-[repeat(auto-fill,minmax(290px,1fr))] gap-3 mt-6">
+            {bookmarks.map((bookmark) => (
+              <BookMarkCard bookmark={bookmark} key={bookmark.id} />
+            ))}
+          </section>
+        </>
+      ) : (
+        <div className="flex flex-col gap-5 items-center justify-center text-center mt-32 px-4 ">
+          <div className="relative bg-gradient-to-tr from-purple-600 to-indigo-600 text-white rounded-full p-5 shadow-lganimate-pulse">
+            <BookOpen className="w-10 h-10" />
+          </div>
+          <h2 className="text-2xl font-bold text-primary">
+            No bookmarks yet
+          </h2>
+          <p className="max-w-md text-muted-foreground">
+            You haven’t added any bookmarks. Start exploring and save your
+            favorite items to easily access them later.
+          </p>
+        </div>
+      )}
+    </div>
   );
 }
