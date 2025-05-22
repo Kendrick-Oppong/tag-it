@@ -3,6 +3,7 @@ import { Bai_Jamjuree } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/shared/theme/theme-provider";
 import { AuthProvider } from "./AuthProvider";
+import { Toaster } from "@/components/shared/theme/toaster";
 
 const bai_Jamjuree = Bai_Jamjuree({
   subsets: ["latin"],
@@ -30,7 +31,10 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <main className="relative"> {children}</main>
+            <main className="relative">
+              <Toaster />
+              {children}
+            </main>
           </ThemeProvider>
         </body>
       </html>

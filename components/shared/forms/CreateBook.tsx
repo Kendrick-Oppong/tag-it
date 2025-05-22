@@ -24,11 +24,12 @@ import { Textarea } from "@/components/ui/textarea";
 import BookmarkCardPreview from "@/components/shared/card/preview";
 import { bookmarkSchema } from "@/validators/form";
 import { useFetchBookmarkMetadata } from "@/hooks/useFetchBookmarkMetadata";
-import { Asterisk } from "lucide-react";
+import { Asterisk, Loader } from "lucide-react";
 import { z } from "zod";
 import { createBookmark } from "@/lib/actions/create-bookmark.action";
 import { useAction } from "next-safe-action/hooks";
 import { Collection } from "@prisma/client";
+import { toast } from "sonner";
 
 export default function CreateBookmark({
   collections,
@@ -53,20 +54,14 @@ export default function CreateBookmark({
   const formValues = form.watch();
   useFetchBookmarkMetadata(url, form);
 
-  const { execute, result } = useAction(createBookmark, {
-    onError: ({ error }) => {
-      if (error.validationErrors) {
-        console.error("Validation errors:", error.validationErrors);
-      }
-      if (error.serverError) {
-        console.error("Server error:", error.serverError);
-      }
-
-      console.error("Error creating bookmark:", error);
+  const { execute, result, isPending } = useAction(createBookmark, {
+    onError: () => {
+      toast.error("Failed to create bookmark");
     },
 
-    onSuccess: (data) => {
-      console.log("Bookmark created successfully:", data);
+    onSuccess: ({ data }) => {
+      toast.success(data?.message);
+      form.reset({});
     },
   });
 
@@ -95,7 +90,11 @@ export default function CreateBookmark({
                       Title <Asterisk size={14} />
                     </FormLabel>
                     <FormControl>
-                      <Input placeholder="Enter bookmark title" {...field} />
+                      <Input
+                        disabled={isPending}
+                        placeholder="Enter bookmark title"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -111,6 +110,7 @@ export default function CreateBookmark({
                     </FormLabel>
                     <FormControl>
                       <Input
+                        disabled={isPending}
                         type="url"
                         placeholder="https://example.com"
                         {...field}
@@ -120,33 +120,33 @@ export default function CreateBookmark({
                   </FormItem>
                 )}
               />
-
-              <FormField
-                control={form.control}
-                name="collectionId"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Collection Type</FormLabel>
-                    <FormControl>
-                      <Select
-                        onValueChange={field.onChange}
-                        value={field.value}
-                      >
-                        <SelectTrigger
-                          className={`w-full ${
-                            form.formState.errors.collectionId?.message
-                              ? "border-destructive"
-                              : ""
-                          }`}
+              {collections.length > 0 && (
+                <FormField
+                  control={form.control}
+                  name="collectionId"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Collection Type</FormLabel>
+                      <FormControl>
+                        <Select
+                          disabled={isPending}
+                          onValueChange={field.onChange}
+                          value={field.value}
                         >
-                          <SelectValue
-                            className="text-sm"
-                            placeholder="Select a collection"
-                          />
-                        </SelectTrigger>
-                        <SelectContent className="text-base">
-                          {collections.length > 0 &&
-                            collections.map((collection) => (
+                          <SelectTrigger
+                            className={`w-full ${
+                              form.formState.errors.collectionId?.message
+                                ? "border-destructive"
+                                : ""
+                            }`}
+                          >
+                            <SelectValue
+                              className="text-sm"
+                              placeholder="Select a collection"
+                            />
+                          </SelectTrigger>
+                          <SelectContent className="text-base">
+                            {collections.map((collection) => (
                               <SelectItem
                                 className="w-full"
                                 key={collection.id}
@@ -155,13 +155,15 @@ export default function CreateBookmark({
                                 {collection.name}
                               </SelectItem>
                             ))}
-                        </SelectContent>
-                      </Select>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+                          </SelectContent>
+                        </Select>
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              )}
+
               <FormField
                 control={form.control}
                 name="description"
@@ -170,6 +172,7 @@ export default function CreateBookmark({
                     <FormLabel>Description (auto-fetched)</FormLabel>
                     <FormControl>
                       <Textarea
+                        disabled={isPending}
                         className="h-10"
                         placeholder="Type your message here."
                         {...field}
@@ -187,6 +190,7 @@ export default function CreateBookmark({
                   <FormItem className="flex items-center space-x-2">
                     <FormControl>
                       <Checkbox
+                        disabled={isPending}
                         className="size-7"
                         checked={field.value}
                         onCheckedChange={field.onChange}
@@ -199,10 +203,22 @@ export default function CreateBookmark({
                 )}
               />
               <div className="flex justify-end gap-2 mt-4">
-                <Button variant="destructive" onClick={() => form.reset()}>
+                <Button
+                  disabled={isPending}
+                  variant="destructive"
+                  onClick={() => form.reset()}
+                >
                   Clear
                 </Button>
-                <Button type="submit">Create</Button>
+                <Button disabled={isPending} type="submit">
+                  {isPending ? (
+                    <>
+                      <Loader className="animate-spin" /> Creating{" "}
+                    </>
+                  ) : (
+                    "Create"
+                  )}
+                </Button>
               </div>
             </form>
           </Form>
