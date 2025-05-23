@@ -21,7 +21,7 @@ export default async function AllBookmarks() {
           <FilteringComponent />
           <section className="grid grid-cols-[repeat(auto-fill,minmax(290px,1fr))] gap-3 mt-6">
             {bookmarks.map((bookmark) => (
-              <BookMarkCard bookmark={bookmark} key={bookmark.id} />
+              <BookMarkCard bookmark={bookmark} key={bookmark?.id} />
             ))}
           </section>
         </>
