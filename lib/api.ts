@@ -4,7 +4,7 @@ import { prisma } from "@/lib/prisma";
 import { requireUser } from "@/lib/actions/require-user.action";
 import { cache } from "react";
 
-export async function fetchUserData() {
+export const fetchUserData = cache(async () => {
   try {
     const { user } = await requireUser();
     const dbUser = await prisma.user.findUnique({
@@ -22,7 +22,7 @@ export async function fetchUserData() {
       message: "Failed to fetch user data",
     };
   }
-}
+});
 
 export const fetchUserBookmarks = cache(async () => {
   try {
