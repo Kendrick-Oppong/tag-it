@@ -41,7 +41,7 @@ export default function CreateBookmark({
     resolver: zodResolver(bookmarkSchema),
     defaultValues: {
       title: "",
-      url: "https://vercel.com/",
+      url: "",
       description: "",
       isFavorite: false,
       faviconUrl: "",

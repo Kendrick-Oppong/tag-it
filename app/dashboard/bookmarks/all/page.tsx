@@ -18,6 +18,7 @@ export default async function AllBookmarks() {
             </p>
           </div>
           <FilteringComponent />
+
           <section className="grid grid-cols-[repeat(auto-fill,minmax(290px,1fr))] gap-3 mt-6">
             {bookmarks.map((bookmark) => (
               <BookMarkCard bookmark={bookmark} key={bookmark?.id} />
@@ -25,6 +26,7 @@ export default async function AllBookmarks() {
           </section>
         </>
       ) : (
+          
         <div className="flex flex-col gap-5 items-center justify-center text-center mt-32 px-4 ">
           <div className="relative bg-gradient-to-tr from-purple-600 to-indigo-600 text-white rounded-full p-5 shadow-lganimate-pulse">
             <BookOpen className="w-10 h-10" />

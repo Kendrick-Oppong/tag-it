@@ -67,11 +67,7 @@
   --chart-2: hsl(229, 20%, 90%);
   --chart-3: hsl(229, 28%, 85%);
   --chart-4: hsl(229, 20%, 93%);
-  --chart-5: hsl(
-    229,
-    100%,
-    61.66%
-  ); 
+  --chart-5: hsl(229, 100%, 61.66%);
   --radius: 0.5rem;
   --sidebar: hsl(229, 57%, 100%);
   --sidebar-foreground: hsl(229, 63%, 4%);
@@ -154,5 +150,41 @@
 
   .bg-text-clip {
     @apply bg-gradient-to-r from-blue-600 via-purple-500 to-pink-500 text-transparent bg-clip-text;
+  }
+
+  .spinner {
+    width: 50px;
+    height: 50px;
+    display: grid;
+    border: 4.5px solid #0000;
+    border-radius: 50%;
+    border-color: #dcdfeb #0000;
+    animation: spinner-e04l1k 1.2s infinite linear;
+  }
+
+  .spinner::before,
+  .spinner::after {
+    content: "";
+    grid-area: 1/1;
+    margin: 2.2px;
+    border: inherit;
+    border-radius: 50%;
+  }
+
+  .spinner::before {
+    border-color: #3b5fff #0000;
+    animation: inherit;
+    animation-duration: 0.6s;
+    animation-direction: reverse;
+  }
+
+  .spinner::after {
+    margin: 8.9px;
+  }
+
+  @keyframes spinner-e04l1k {
+    100% {
+      transform: rotate(1turn);
+    }
   }
 }
