@@ -3,25 +3,29 @@ import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
+  SelectGroup,
   SelectItem,
+  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Separator } from "@/components/ui/separator";
 import {
   Filter,
   Heart,
-  Layers,
   List,
   Search,
   CalendarDays,
-  Tag,
+  ArrowDownAZ,
+  ArrowUpZA,
+  Folder,
+  Star,
 } from "lucide-react";
 import { usePathname } from "next/navigation";
 
 const FilteringComponent = () => {
   const pathname = usePathname();
 
-  // Hide on /create or /edit routes
   const hideFilter = /\/dashboard\/bookmarks\/(create|edit)/.test(pathname);
   if (hideFilter) return null;
 
@@ -40,22 +44,22 @@ const FilteringComponent = () => {
         {/* Filter + Sort */}
         <div className="flex items-center gap-3">
           {/* Sort Select */}
-          <Select >
+          <Select>
             <SelectTrigger className="w-[160px] border-primary dark:border-border">
               <List className="mr-2 h-4 w-4" />
               <SelectValue placeholder="Sort" />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="title-asc">
-                <Tag className="mr-2 h-4 w-4" />
+                
+                <ArrowDownAZ className="mr-2 h-4 w-4" />
                 Title (A-Z)
               </SelectItem>
               <SelectItem value="title-desc">
-                <Tag className="mr-2 h-4 w-4" />
+                <ArrowUpZA className="mr-2 h-4 w-4" />
                 Title (Z-A)
               </SelectItem>
               <SelectItem value="date-new">
-                
                 <CalendarDays className="mr-2 h-4 w-4" />
                 Date (Newest)
               </SelectItem>
@@ -66,25 +70,39 @@ const FilteringComponent = () => {
             </SelectContent>
           </Select>
 
-          {/* Filter Select */}
+          {/* Filter Select with Group */}
           <Select>
-            <SelectTrigger className="w-[180px] border-primary dark:border-border">
+            <SelectTrigger className="w-[200px] border-primary dark:border-border">
               <Filter className="mr-2 h-4 w-4" />
-              <SelectValue placeholder="Filter" />
+              <SelectValue placeholder="Filter by" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">
-                <List className="mr-2 h-4 w-4" />
-                All Bookmarks
-              </SelectItem>
-              <SelectItem value="favorites">
-                <Heart className="mr-2 h-4 w-4" />
-                Favorites
-              </SelectItem>
-              <SelectItem value="in-collection">
-                <Layers className="mr-2 h-4 w-4" />
-                In Collection
-              </SelectItem>
+              <SelectGroup>
+                <SelectLabel>General</SelectLabel>
+                <Separator />
+                <SelectItem value="all">
+                  <List className="mr-2 h-4 w-4" />
+                  All
+                </SelectItem>
+                <SelectItem value="favorites">
+                  <Heart className="mr-2 h-4 w-4" />
+                  Favorites
+                </SelectItem>
+              </SelectGroup>
+              <SelectGroup>
+                <SelectLabel>Collections</SelectLabel>
+                <Separator />
+
+                <SelectItem value="my-folders">
+                  <Folder className="mr-2 h-4 w-4" />
+                  Uncategorized
+                </SelectItem>
+                <SelectItem value="starred">
+                  <Star className="mr-2 h-4 w-4" />
+                  Starred Items
+                </SelectItem>
+              </SelectGroup>
+              
             </SelectContent>
           </Select>
         </div>
