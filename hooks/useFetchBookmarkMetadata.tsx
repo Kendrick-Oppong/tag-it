@@ -1,5 +1,4 @@
 import { useEffect, useRef } from "react";
-import { getLinkPreview } from "link-preview-js";
 import * as z from "zod";
 import { UseFormReturn } from "react-hook-form";
 import { bookmarkSchema } from "@/validators/form";
@@ -17,19 +16,22 @@ export function useFetchBookmarkMetadata(
 
     debounceRef.current = setTimeout(async () => {
       try {
-        const preview = await getLinkPreview(url);
+        const response = await fetch(
+          `/api/link-preview?url=${encodeURIComponent(url)}`
+        );
+        const preview = await response.json();
         console.log("preview", preview);
         if ("images" in preview) {
           form.setValue("title", preview.siteName ?? "");
-          form.setValue("thumbnailUrl", preview.images[0]);
-          form.setValue("description", preview.description);
-          form.setValue("faviconUrl", preview.favicons[0]);
+          form.setValue("thumbnailUrl", preview.images[0] ?? "");
+          form.setValue("description", preview.description ?? "");
+          form.setValue("faviconUrl", preview.favicons[0] ?? "");
           form.setValue("metadata", JSON.stringify(preview, null, 2));
         }
       } catch (error) {
         console.error("Failed to fetch metadata:", error);
       }
-    }, 500); // debounce delay
+    }, 500);
 
     return () => {
       if (debounceRef.current) clearTimeout(debounceRef.current);

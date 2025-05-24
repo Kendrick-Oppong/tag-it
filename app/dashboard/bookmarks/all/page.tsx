@@ -6,7 +6,6 @@ import { BookOpen } from "lucide-react";
 export default async function AllBookmarks() {
   const { bookmarks } = await fetchUserBookmarks();
   const hasBookmarks = bookmarks && bookmarks.length > 0;
-
   return (
     <div className="p-6">
       {hasBookmarks ? (
@@ -30,9 +29,7 @@ export default async function AllBookmarks() {
           <div className="relative bg-gradient-to-tr from-purple-600 to-indigo-600 text-white rounded-full p-5 shadow-lganimate-pulse">
             <BookOpen className="w-10 h-10" />
           </div>
-          <h2 className="text-2xl font-bold text-primary">
-            No bookmarks yet
-          </h2>
+          <h2 className="text-2xl font-bold text-primary">No bookmarks yet</h2>
           <p className="max-w-md text-muted-foreground">
             You haven’t added any bookmarks. Start exploring and save your
             favorite items to easily access them later.

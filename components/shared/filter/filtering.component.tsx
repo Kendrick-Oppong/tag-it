@@ -52,8 +52,8 @@ const FilteringComponent = () => {
             <DropdownMenuContent>
               <DropdownMenuItem>Title (A-Z)</DropdownMenuItem>
               <DropdownMenuItem>Title (Z-A)</DropdownMenuItem>
-              <DropdownMenuItem>Date Added (Newest)</DropdownMenuItem>
-              <DropdownMenuItem>Date Added (Oldest)</DropdownMenuItem>
+              <DropdownMenuItem>Date (Newest)</DropdownMenuItem>
+              <DropdownMenuItem>Date (Oldest)</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
           <Select>

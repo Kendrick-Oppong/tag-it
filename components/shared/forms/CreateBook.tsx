@@ -30,6 +30,7 @@ import { createBookmark } from "@/lib/actions/create-bookmark.action";
 import { useAction } from "next-safe-action/hooks";
 import { Collection } from "@prisma/client";
 import { toast } from "sonner";
+import { redirect } from "next/navigation";
 
 export default function CreateBookmark({
   collections,
@@ -54,7 +55,7 @@ export default function CreateBookmark({
   const formValues = form.watch();
   useFetchBookmarkMetadata(url, form);
 
-  const { execute, result, isPending } = useAction(createBookmark, {
+  const { execute, isPending } = useAction(createBookmark, {
     onError: () => {
       toast.error("Failed to create bookmark");
     },
@@ -62,13 +63,14 @@ export default function CreateBookmark({
     onSuccess: ({ data }) => {
       toast.success(data?.message);
       form.reset({});
+      setTimeout(() => {
+        redirect("/dashboard");
+      }, 1000);
     },
   });
 
   function onSubmit(values: z.infer<typeof bookmarkSchema>) {
     execute(values);
-    console.log("result.serverError", result);
-    console.log("result.validationErrors", result);
   }
 
   return (
@@ -87,7 +89,7 @@ export default function CreateBookmark({
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>
-                      Title <Asterisk size={14} />
+                      Title <Asterisk size={14} className="text-destructive" />
                     </FormLabel>
                     <FormControl>
                       <Input
@@ -106,7 +108,7 @@ export default function CreateBookmark({
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>
-                      URL <Asterisk size={14} />
+                      URL <Asterisk size={14} className="text-destructive" />
                     </FormLabel>
                     <FormControl>
                       <Input
@@ -126,7 +128,10 @@ export default function CreateBookmark({
                   name="collectionId"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Collection Type</FormLabel>
+                      <FormLabel>
+                        Collection Type
+                        <Asterisk size={14} className="text-destructive" />
+                      </FormLabel>
                       <FormControl>
                         <Select
                           disabled={isPending}

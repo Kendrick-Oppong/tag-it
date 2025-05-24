@@ -1,5 +1,6 @@
 "server only";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+import { redirect } from "next/navigation";
 
 export async function requireUser() {
   const { getUser, isAuthenticated } = getKindeServerSession();
@@ -7,7 +8,7 @@ export async function requireUser() {
   const user = await getUser();
 
   if (!user || !isUserAuthenticated) {
-    throw new Error("Unauthorized access");
+    redirect("/api/auth/login");
   }
 
   return { user };

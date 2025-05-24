@@ -4,6 +4,7 @@ import { bookmarkSchema } from "@/validators/form";
 import { prisma } from "../prisma";
 import { authActionClient } from "./safe-action";
 import { flattenValidationErrors } from "next-safe-action";
+import { revalidatePath } from "next/cache";
 
 export const createBookmark = authActionClient
   .schema(bookmarkSchema, {
@@ -37,7 +38,7 @@ export const createBookmark = authActionClient
 
     // Create the bookmark in the database
     await prisma.bookmark.create({ data: bookmarkData });
-
+    revalidatePath("/dashboard/bookmarks/all");
     return {
       success: true,
       message: "Bookmark created successfully",

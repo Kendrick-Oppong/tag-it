@@ -26,6 +26,7 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import React from "react";
+import Thumbnail from "./thumbnail";
 
 type BookmarkProps = Bookmark & { collection: Collection | null };
 
@@ -72,16 +73,12 @@ const BookMarkCard = ({ bookmark }: { bookmark: BookmarkProps }) => {
       </CardHeader>
       <CardContent>
         {bookmark.thumbnailUrl && (
-          <Image
-            src={
-              bookmark.thumbnailUrl || "https://placehold.net/10-600x800.png"
-            }
+          <Thumbnail
+            src={bookmark.thumbnailUrl}
             height={192}
             width={192}
-            priority
-            quality={85}
             alt={`${bookmark.title} thumbnail`}
-            className="w-full h-48 rounded-md mb-3 border border-border"
+            className="w-full h-48 object-cover rounded-md mb-3 border border-border"
           />
         )}
         <p className="text-base font-semibold line-clamp-2">
