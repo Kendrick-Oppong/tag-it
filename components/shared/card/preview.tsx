@@ -11,6 +11,8 @@ import { bookmarkSchema } from "@/validators/form";
 import { Collection } from "@prisma/client";
 import { Star, Folder, Calendar } from "lucide-react";
 import { z } from "zod";
+import Thumbnail from "./thumbnail";
+import Avatar from "./avatar";
 
 type Bookmark = z.infer<typeof bookmarkSchema>;
 
@@ -29,15 +31,9 @@ export default function BookmarkCardPreview({
     <Card className="relative border bg-background gap-0 pt-5 pb-2 space-y-4">
       <CardHeader>
         <div className="flex items-start gap-3">
-          <img
-            src={
-              bookmark.faviconUrl || "https://avatar.vercel.sh/rauchg?size=24"
-            }
+          <Avatar
+            src={bookmark.faviconUrl!}
             alt={`${bookmark.title} favicon`}
-            className="h-6 w-6 rounded-full"
-            onError={(e) =>
-              (e.currentTarget.src = "https://avatar.vercel.sh/rauchg?size=24")
-            }
           />
 
           <div className="flex-1">
@@ -46,10 +42,10 @@ export default function BookmarkCardPreview({
                 {bookmark.title || "Bookmark Title"}
               </CardTitle>
               {bookmark.isFavorite && (
-                <Star className="h-5 w-5 text-yellow-400 fill-current" />
+                <Star className="h-5 w-5 text-yellow-500 fill-current" />
               )}
             </div>
-            <CardDescription className="text-gray-400 truncate">
+            <CardDescription className="text-muted-foreground truncate">
               <a
                 href={bookmark.url}
                 target="_blank"
@@ -63,13 +59,12 @@ export default function BookmarkCardPreview({
         </div>
       </CardHeader>
       <CardContent>
-        <img
-          src={bookmark.thumbnailUrl || "https://placehold.net/10-600x800.png"}
+        <Thumbnail
+          src={bookmark.thumbnailUrl!}
           alt={`${bookmark.title} thumbnail`}
           className="w-full h-48 object-cover rounded-md mb-3"
-          onError={(e) =>
-            (e.currentTarget.src = "https://placehold.net/10-600x800.png")
-          }
+          height={192}
+          width={192}
         />
 
         <p className="text-base font-semibold line-clamp-2">

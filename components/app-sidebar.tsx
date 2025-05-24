@@ -18,13 +18,15 @@ import {
 } from "@/components/ui/sidebar";
 import { Button } from "./ui/button";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { navigationData } from "@/constants/dashboard.constants";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const [activeItem, setActiveItem] = React.useState(navigationData.navMain[0]);
   const router = useRouter();
   const { setOpen } = useSidebar();
+  const pathname = usePathname();
+
 
   return (
     <Sidebar
@@ -120,7 +122,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                       asChild
                       className="hover:text-primary hover:bg-secondary/30 dark:hover:bg-muted rounded-md py-2"
                     >
-                      <Link href={subItem.url}>{subItem.title}</Link>
+                      <Link
+                        className={pathname === subItem.url ? "bg-accent font-medium" : ""}
+                        href={subItem.url}
+                      >
+                        {subItem.title}
+                      </Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 ))}

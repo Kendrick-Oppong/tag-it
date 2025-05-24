@@ -16,17 +16,10 @@ import {
 } from "@/components/ui/tooltip";
 import { Bookmark, Collection } from "@prisma/client";
 
-import {
-  Globe,
-  Star,
-  Folder,
-  Pencil,
-  Trash,
-  Copy,
-} from "lucide-react";
-import Image from "next/image";
+import { Star, Folder, Pencil, Trash, Copy, ExternalLink } from "lucide-react";
 import React from "react";
 import Thumbnail from "./thumbnail";
+import Avatar from "./avatar";
 
 type BookmarkProps = Bookmark & { collection: Collection | null };
 
@@ -36,40 +29,38 @@ const BookMarkCard = ({ bookmark }: { bookmark: BookmarkProps }) => {
       key={bookmark.id}
       className="relative border bg-background gap-0 pt-5 pb-2 space-y-4"
     >
-      <CardHeader>
-        <div className="flex items-start gap-3">
-          {bookmark.faviconUrl ? (
-            <Image
-              width={24}
-              height={24}
-              src={bookmark.faviconUrl}
-              alt={`${bookmark.title} favicon`}
-              className="h-6 w-6 rounded-full"
-            />
-          ) : (
-            <Globe className="h-6 w-6 text-gray-400" />
+      <CardHeader className="space-y-1">
+        <div className="flex items-center justify-between gap-3">
+          <Avatar
+            src={bookmark.faviconUrl!}
+            alt={`${bookmark.title} favicon`}
+          />
+          {bookmark.isFavorite && (
+            <Star className="h-5 w-5 text-yellow-500 fill-current" />
           )}
-          <div className="flex-1">
-            <div className="flex justify-between items-start">
-              <CardTitle className="text-lg text-primary truncate">
-                {bookmark.title}
-              </CardTitle>
-              {bookmark.isFavorite && (
-                <Star className="h-5 w-5 text-yellow-400 fill-current" />
-              )}
-            </div>
-            <CardDescription className="text-gray-400 truncate">
-              <a
-                href={bookmark.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:underline"
-              >
-                {bookmark.url}
-              </a>
-            </CardDescription>
-          </div>
         </div>
+        <CardTitle className="text-lg text-primary line-clamp-2">
+          {bookmark.title}
+        </CardTitle>
+
+        <CardDescription className="text-muted-foreground line-clamp-2 flex items-center gap-1.5">
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <a
+                  href={bookmark.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <ExternalLink className="w-6 h-6" strokeWidth={2} />
+                </a>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>Visit Link</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+        </CardDescription>
       </CardHeader>
       <CardContent>
         {bookmark.thumbnailUrl && (
@@ -82,7 +73,7 @@ const BookMarkCard = ({ bookmark }: { bookmark: BookmarkProps }) => {
           />
         )}
         <p className="text-base font-semibold line-clamp-2">
-          {bookmark.description || "No description"}
+          {bookmark.description}
         </p>
       </CardContent>
       <CardFooter className="mt-auto w-full flex flex-col space-y-3">
