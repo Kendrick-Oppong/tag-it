@@ -1,12 +1,4 @@
 "use client";
-
-import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import {
   Select,
@@ -15,22 +7,28 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Filter, Search, SortAsc } from "lucide-react";
+import {
+  Filter,
+  Heart,
+  Layers,
+  List,
+  Search,
+  CalendarDays,
+  Tag,
+} from "lucide-react";
 import { usePathname } from "next/navigation";
 
 const FilteringComponent = () => {
   const pathname = usePathname();
 
-  // Regex to hide on /create or /edit routes
+  // Hide on /create or /edit routes
   const hideFilter = /\/dashboard\/bookmarks\/(create|edit)/.test(pathname);
-
-  if (hideFilter) {
-    return null;
-  }
+  if (hideFilter) return null;
 
   return (
     <header className="mb-8">
       <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+        {/* Search Input */}
         <div className="relative flex-1">
           <Input
             placeholder="Search by title"
@@ -38,33 +36,55 @@ const FilteringComponent = () => {
           />
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-5 w-5" />
         </div>
+
+        {/* Filter + Sort */}
         <div className="flex items-center gap-3">
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button
-                variant="outline"
-                className="h-10 border-primary dark:border-border font-normal text-muted-foreground text-base"
-              >
-                <SortAsc className="mr-2 h-4 w-4" />
-                Sort
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent>
-              <DropdownMenuItem>Title (A-Z)</DropdownMenuItem>
-              <DropdownMenuItem>Title (Z-A)</DropdownMenuItem>
-              <DropdownMenuItem>Date (Newest)</DropdownMenuItem>
-              <DropdownMenuItem>Date (Oldest)</DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+          {/* Sort Select */}
+          <Select >
+            <SelectTrigger className="w-[160px] border-primary dark:border-border">
+              <List className="mr-2 h-4 w-4" />
+              <SelectValue placeholder="Sort" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="title-asc">
+                <Tag className="mr-2 h-4 w-4" />
+                Title (A-Z)
+              </SelectItem>
+              <SelectItem value="title-desc">
+                <Tag className="mr-2 h-4 w-4" />
+                Title (Z-A)
+              </SelectItem>
+              <SelectItem value="date-new">
+                
+                <CalendarDays className="mr-2 h-4 w-4" />
+                Date (Newest)
+              </SelectItem>
+              <SelectItem value="date-old">
+                <CalendarDays className="mr-2 h-4 w-4" />
+                Date (Oldest)
+              </SelectItem>
+            </SelectContent>
+          </Select>
+
+          {/* Filter Select */}
           <Select>
             <SelectTrigger className="w-[180px] border-primary dark:border-border">
               <Filter className="mr-2 h-4 w-4" />
               <SelectValue placeholder="Filter" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">All Bookmarks</SelectItem>
-              <SelectItem value="favorites">Favorites</SelectItem>
-              <SelectItem value="in-collection">In Collection</SelectItem>
+              <SelectItem value="all">
+                <List className="mr-2 h-4 w-4" />
+                All Bookmarks
+              </SelectItem>
+              <SelectItem value="favorites">
+                <Heart className="mr-2 h-4 w-4" />
+                Favorites
+              </SelectItem>
+              <SelectItem value="in-collection">
+                <Layers className="mr-2 h-4 w-4" />
+                In Collection
+              </SelectItem>
             </SelectContent>
           </Select>
         </div>
