@@ -1,7 +1,9 @@
+
+
 "use client";
 
-import * as React from "react";
-import { Search, FolderPlus,} from "lucide-react";
+import {useState} from "react";
+import { Search, FolderPlus, Bookmark, FolderKanban, Plus } from "lucide-react";
 
 import { NavUser } from "@/components/nav-user";
 import {
@@ -19,14 +21,26 @@ import {
 import { Button } from "./ui/button";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { navigationData } from "@/constants/dashboard.constants";
+import { NavigationData } from "@/interfaces/data.interfaces";
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-  const [activeItem, setActiveItem] = React.useState(navigationData.navMain[0]);
+type AppSidebarProps = React.ComponentProps<typeof Sidebar> & {
+  navigationData: NavigationData;
+};
+
+// Map titles to icons
+const iconMap: Record<string, React.ElementType> = {
+  Bookmarks: Bookmark,
+  Collections: FolderKanban,
+  "New Bookmark": Plus,
+};
+
+export function AppSidebar({ navigationData, ...props }: AppSidebarProps) {
+  const [activeItem, setActiveItem] = useState(
+    navigationData.navMain[0]
+  );
   const router = useRouter();
   const { setOpen } = useSidebar();
   const pathname = usePathname();
-
 
   return (
     <Sidebar
@@ -43,37 +57,40 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           <SidebarGroup>
             <SidebarGroupContent className="px-1.5 md:px-0">
               <SidebarMenu className="space-y-3">
-                {navigationData.navMain.map((item) => (
-                  <SidebarMenuItem key={item.title}>
-                    <SidebarMenuButton
-                      tooltip={{
-                        children: item.title,
-                        hidden: false,
-                      }}
-                      onClick={() => {
-                        setActiveItem(item);
-                        setOpen(true);
-                        if (item.subItems.length > 0) {
-                          router.push(item.subItems[0].url);
-                        }
-                      }}
-                      isActive={activeItem?.title === item.title}
-                      className={`px-2.5 md:px-2 `}
-                    >
-                      <item.icon
-                        strokeWidth={`${
-                          item.subItems[0]?.title === "Create" ? 3 : ""
-                        }`}
-                        className={`${
-                          item.subItems[0]?.title === "Create"
-                            ? "text-primary font-bold"
-                            : ""
-                        }`}
-                      />
-                      <span>{item.title}</span>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                ))}
+                {navigationData.navMain.map((item) => {
+                  const Icon = iconMap[item.title] || Bookmark; // Fallback to Bookmark if no match
+                  return (
+                    <SidebarMenuItem key={item.title}>
+                      <SidebarMenuButton
+                        tooltip={{
+                          children: item.title,
+                          hidden: false,
+                        }}
+                        onClick={() => {
+                          setActiveItem(item);
+                          setOpen(true);
+                          if (item.subItems.length > 0) {
+                            router.push(item.subItems[0].url);
+                          }
+                        }}
+                        isActive={activeItem?.title === item.title}
+                        className={`px-2.5 md:px-2 `}
+                      >
+                        <Icon
+                          strokeWidth={`${
+                            item.subItems[0]?.title === "Create" ? 3 : ""
+                          }`}
+                          className={`${
+                            item.subItems[0]?.title === "Create"
+                              ? "text-primary font-bold"
+                              : ""
+                          }`}
+                        />
+                        <span>{item.title}</span>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                  );
+                })}
                 <SidebarMenuItem>
                   <SidebarMenuButton
                     tooltip={{
@@ -123,7 +140,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                       className="hover:text-primary hover:bg-secondary/30 dark:hover:bg-muted rounded-md py-2"
                     >
                       <Link
-                        className={pathname === subItem.url ? "bg-accent font-medium" : ""}
+                        className={
+                          pathname === subItem.url
+                            ? "bg-accent font-medium"
+                            : ""
+                        }
                         href={subItem.url}
                       >
                         {subItem.title}

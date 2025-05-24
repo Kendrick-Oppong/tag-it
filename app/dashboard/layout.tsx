@@ -11,6 +11,8 @@ import { BreadcrumbComponent } from "@/components/shared/breadcrumb/breadcrumb.c
 import { saveUser } from "@/lib/actions/create-user.action";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { redirect } from "next/navigation";
+import { fetchUserData } from "@/lib/api";
+import { getNavigationData } from "@/constants/dashboard.constants";
 
 export default async function DashboardLayout({
   children,
@@ -24,11 +26,16 @@ export default async function DashboardLayout({
   }
 
   await saveUser();
+
+  const { collections } = await fetchUserData();
+  const navigationData = getNavigationData(collections ?? []);
+
+
   return (
     <>
       <HeaderComponent />
       <SidebarProvider className="w-auto">
-        <AppSidebar />
+        <AppSidebar navigationData={ navigationData}/>
         <SidebarInset>
           <header className="bg-background z-2 mt-16 w-full fixed top-0 flex shrink-0 items-center gap-2 border-b p-2.5">
             <SidebarTrigger className="-ml-1" />
