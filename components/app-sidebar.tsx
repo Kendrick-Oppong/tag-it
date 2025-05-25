@@ -22,6 +22,7 @@ import { Button } from "./ui/button";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { NavigationData } from "@/interfaces/data.interfaces";
+import { Tooltip, TooltipTrigger,TooltipContent,TooltipProvider } from "./ui/tooltip";
 
 type AppSidebarProps = React.ComponentProps<typeof Sidebar> & {
   navigationData: NavigationData;
@@ -122,9 +123,21 @@ export function AppSidebar({ navigationData, ...props }: AppSidebarProps) {
 
             {activeItem.title === "Collections" && (
               <div className="flex items-center gap-2 text-primary">
-                <Button variant="ghost" title="Create Subfolder">
-                  <FolderPlus className="size-5" strokeWidth={2} size={18} />
-                </Button>
+                <TooltipProvider>
+
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button variant="ghost">
+                      <FolderPlus
+                        className="size-5"
+                        strokeWidth={2}
+                        size={18}
+                      />
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent side="right">Create Folder</TooltipContent>
+                </Tooltip>
+                </TooltipProvider>
               </div>
             )}
           </div>

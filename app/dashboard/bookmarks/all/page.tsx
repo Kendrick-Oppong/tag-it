@@ -1,10 +1,12 @@
 import BookMarkCard from "@/components/shared/card/card";
 import FilteringComponent from "@/components/shared/filter/filtering.component";
-import { fetchUserBookmarks } from "@/lib/api";
+import { fetchUserBookmarks, fetchUserData } from "@/lib/api";
 import { BookOpen } from "lucide-react";
 
 export default async function AllBookmarks() {
   const { bookmarks } = await fetchUserBookmarks();
+  const { collections } = await fetchUserData();
+
   const hasBookmarks = bookmarks && bookmarks.length > 0;
   return (
     <div className="p-6">
@@ -17,7 +19,7 @@ export default async function AllBookmarks() {
               <span className="text-destructive">({bookmarks.length})</span>
             </p>
           </div>
-          <FilteringComponent />
+          <FilteringComponent collections={collections} />
 
           <section className="grid grid-cols-[repeat(auto-fill,minmax(290px,1fr))] gap-3 mt-6">
             {bookmarks.map((bookmark) => (
@@ -26,7 +28,6 @@ export default async function AllBookmarks() {
           </section>
         </>
       ) : (
-          
         <div className="flex flex-col gap-5 items-center justify-center text-center mt-32 px-4 ">
           <div className="relative bg-gradient-to-tr from-purple-600 to-indigo-600 text-white rounded-full p-5 shadow-lganimate-pulse">
             <BookOpen className="w-10 h-10" />

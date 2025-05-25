@@ -19,11 +19,15 @@ import {
   ArrowDownAZ,
   ArrowUpZA,
   Folder,
-  Star,
 } from "lucide-react";
 import { usePathname } from "next/navigation";
+import { Collection } from "@prisma/client";
 
-const FilteringComponent = () => {
+const FilteringComponent = ({
+  collections,
+}: {
+  collections?: Collection[];
+}) => {
   const pathname = usePathname();
 
   const hideFilter = /\/dashboard\/bookmarks\/(create|edit)/.test(pathname);
@@ -51,7 +55,6 @@ const FilteringComponent = () => {
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="title-asc">
-                
                 <ArrowDownAZ className="mr-2 h-4 w-4" />
                 Title (A-Z)
               </SelectItem>
@@ -93,16 +96,13 @@ const FilteringComponent = () => {
                 <SelectLabel>Collections</SelectLabel>
                 <Separator />
 
-                <SelectItem value="my-folders">
-                  <Folder className="mr-2 h-4 w-4" />
-                  Uncategorized
-                </SelectItem>
-                <SelectItem value="starred">
-                  <Star className="mr-2 h-4 w-4" />
-                  Starred Items
-                </SelectItem>
+                {collections?.map((collection) => (
+                  <SelectItem key={collection.id} value={collection.name}>
+                    <Folder className="mr-2 h-4 w-4" />
+                    {collection.name}
+                  </SelectItem>
+                ))}
               </SelectGroup>
-              
             </SelectContent>
           </Select>
         </div>

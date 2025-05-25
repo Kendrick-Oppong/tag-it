@@ -1,4 +1,3 @@
-"use server";
 
 import { prisma } from "@/lib/prisma";
 import { requireUser } from "@/lib/actions/require-user.action";
