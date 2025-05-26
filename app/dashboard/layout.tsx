@@ -1,4 +1,4 @@
-import { AppSidebar } from "@/components/app-sidebar";
+import { AppSidebar } from "@/components/shared/sidebar/app-sidebar";
 import HeaderComponent from "@/components/dashboard/Header.component";
 import { Separator } from "@/components/ui/separator";
 import {
@@ -30,12 +30,11 @@ export default async function DashboardLayout({
   const { collections } = await fetchUserData();
   const navigationData = getNavigationData(collections ?? []);
 
-
   return (
     <>
       <HeaderComponent />
       <SidebarProvider className="w-auto">
-        <AppSidebar navigationData={ navigationData}/>
+        <AppSidebar navigationData={navigationData} />
         <SidebarInset>
           <header className="bg-background z-2 mt-16 w-full fixed top-0 flex shrink-0 items-center gap-2 border-b p-2.5">
             <SidebarTrigger className="-ml-1" />

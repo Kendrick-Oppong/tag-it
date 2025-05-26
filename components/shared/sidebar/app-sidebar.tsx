@@ -1,11 +1,9 @@
-
-
 "use client";
 
-import {useState} from "react";
+import { useState } from "react";
 import { Search, FolderPlus, Bookmark, FolderKanban, Plus } from "lucide-react";
 
-import { NavUser } from "@/components/nav-user";
+import { NavUser } from "@/components/shared/sidebar/nav-user";
 import {
   Sidebar,
   SidebarContent,
@@ -18,11 +16,16 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar";
-import { Button } from "./ui/button";
+import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { NavigationData } from "@/interfaces/data.interfaces";
-import { Tooltip, TooltipTrigger,TooltipContent,TooltipProvider } from "./ui/tooltip";
+import {
+  Tooltip,
+  TooltipTrigger,
+  TooltipContent,
+  TooltipProvider,
+} from "@/components/ui/tooltip";
 
 type AppSidebarProps = React.ComponentProps<typeof Sidebar> & {
   navigationData: NavigationData;
@@ -36,9 +39,7 @@ const iconMap: Record<string, React.ElementType> = {
 };
 
 export function AppSidebar({ navigationData, ...props }: AppSidebarProps) {
-  const [activeItem, setActiveItem] = useState(
-    navigationData.navMain[0]
-  );
+  const [activeItem, setActiveItem] = useState(navigationData.navMain[0]);
   const router = useRouter();
   const { setOpen } = useSidebar();
   const pathname = usePathname();
@@ -124,19 +125,18 @@ export function AppSidebar({ navigationData, ...props }: AppSidebarProps) {
             {activeItem.title === "Collections" && (
               <div className="flex items-center gap-2 text-primary">
                 <TooltipProvider>
-
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <Button variant="ghost">
-                      <FolderPlus
-                        className="size-5"
-                        strokeWidth={2}
-                        size={18}
-                      />
-                    </Button>
-                  </TooltipTrigger>
-                  <TooltipContent side="right">Create Folder</TooltipContent>
-                </Tooltip>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Button variant="ghost">
+                        <FolderPlus
+                          className="size-5"
+                          strokeWidth={2}
+                          size={18}
+                        />
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent side="right">Create Folder</TooltipContent>
+                  </Tooltip>
                 </TooltipProvider>
               </div>
             )}
