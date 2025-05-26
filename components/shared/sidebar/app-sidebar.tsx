@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { Search, FolderPlus, Bookmark, FolderKanban, Plus } from "lucide-react";
 
-import { NavUser } from "@/components/shared/sidebar/nav-user";
 import {
   Sidebar,
   SidebarContent,
@@ -26,6 +25,7 @@ import {
   TooltipContent,
   TooltipProvider,
 } from "@/components/ui/tooltip";
+import { NavUser } from "./nav-user";
 
 type AppSidebarProps = React.ComponentProps<typeof Sidebar> & {
   navigationData: NavigationData;
