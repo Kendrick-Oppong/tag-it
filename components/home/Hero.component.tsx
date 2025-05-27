@@ -22,8 +22,8 @@ const HeroComponent = () => {
           boss.
         </p>
         <div className="my-5">
-          <Button className="cursor-pointer" size="lg">
-            <Link href="dashboard"> Get Started</Link>
+          <Button  className="cursor-pointer" size="lg">
+            <Link href="/dashboard"> Get Started</Link>
           </Button>
         </div>
       </div>

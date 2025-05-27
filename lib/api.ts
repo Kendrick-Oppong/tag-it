@@ -1,4 +1,3 @@
-
 import { prisma } from "@/lib/prisma";
 import { requireUser } from "@/lib/actions/require-user.action";
 import { cache } from "react";
@@ -55,6 +54,46 @@ export const fetchUserBookmarks = cache(async () => {
     return {
       success: false,
       message: "Failed to fetch user bookmarks",
+    };
+  }
+});
+
+export const fetchFavoriteBookmarks = cache(async () => {
+  try {
+    const { user } = await requireUser();
+    const dbUser = await prisma.user.findUnique({
+      where: { kindeId: user.id },
+    });
+
+    if (!dbUser) {
+      return {
+        success: false,
+        message: "User not found in database",
+      };
+    }
+
+    const bookmarks = await prisma.bookmark.findMany({
+      where: {
+        userId: dbUser.id,
+        isFavorite: true,
+      },
+      include: {
+        collection: true,
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+
+    return {
+      success: true,
+      bookmarks,
+    };
+  } catch (error) {
+    console.error("Error fetching favorite bookmarks:", error);
+    return {
+      success: false,
+      message: "Failed to fetch favorite bookmarks",
     };
   }
 });
