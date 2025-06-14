@@ -1,5 +1,3 @@
-
-
 import { NavigationData } from "@/interfaces/data.interfaces";
 import { Collection } from "@prisma/client";
 
@@ -22,17 +20,11 @@ export const getNavigationData = (
         subItems: [
           { title: "All", url: "/dashboard/bookmarks/all" },
           { title: "Favorites", url: "/dashboard/bookmarks/favorites" },
-        ],
-      },
-      {
-        title: "Collections",
-        url: "/dashboard/collections",
-        isActive: false,
-        subItems:
-          collections?.map((collection) => ({
+          ...(collections?.map((collection) => ({
             title: collection.name,
-            url: `/dashboard/collections/${collection.name.toLowerCase()}`,
-          })) ?? [],
+            url: `/dashboard/bookmarks/${collection.name.toLowerCase()}`,
+          })) ?? []),
+        ],
       },
       {
         title: "New Bookmark",

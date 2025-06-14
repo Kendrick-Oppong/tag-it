@@ -12,9 +12,9 @@ export const createBookmark = authActionClient
       flattenValidationErrors(ve).fieldErrors,
   })
   .action(async ({ parsedInput: data, ctx: { user } }) => {
-    // Look up the user in the database using kindeId
+
     const dbUser = await prisma.user.findUnique({
-      where: { kindeId: user.id }, // user.id is the Kinde Auth id
+      where: { kindeId: user.id }, 
     });
 
     if (!dbUser) {
@@ -36,7 +36,6 @@ export const createBookmark = authActionClient
       collectionId: data.collectionId,
     };
 
-    // Create the bookmark in the database
     await prisma.bookmark.create({ data: bookmarkData });
     revalidatePath("/dashboard/bookmarks/all");
     return {

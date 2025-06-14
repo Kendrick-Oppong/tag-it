@@ -20,3 +20,13 @@ export const bookmarkSchema = z.object({
   metadata: z.string().optional(),
   collectionId: z.string().min(1, "Type is required"),
 });
+
+export const collectionSchema = z.object({
+  name: z
+    .string()
+    .min(2, "Name must be at least 2 characters")
+    .max(20, "Name must be at most 20 characters"),
+});
+export const collectionSchema2 = z.object({
+  name: z.string(),
+});

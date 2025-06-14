@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { Search, FolderPlus, Bookmark, FolderKanban, Plus } from "lucide-react";
+import { Fragment, useState } from "react";
+import { Search, Bookmark, FolderKanban, Plus, Heart } from "lucide-react";
 
 import {
   Sidebar,
@@ -15,17 +15,12 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar";
-import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { NavigationData } from "@/interfaces/data.interfaces";
-import {
-  Tooltip,
-  TooltipTrigger,
-  TooltipContent,
-  TooltipProvider,
-} from "@/components/ui/tooltip";
+
 import { NavUser } from "./nav-user";
+import { CreateFolderModal } from "../forms/CreateModal";
 
 type AppSidebarProps = React.ComponentProps<typeof Sidebar> & {
   navigationData: NavigationData;
@@ -34,7 +29,6 @@ type AppSidebarProps = React.ComponentProps<typeof Sidebar> & {
 // Map titles to icons
 const iconMap: Record<string, React.ElementType> = {
   Bookmarks: Bookmark,
-  Collections: FolderKanban,
   "New Bookmark": Plus,
 };
 
@@ -96,6 +90,17 @@ export function AppSidebar({ navigationData, ...props }: AppSidebarProps) {
                 <SidebarMenuItem>
                   <SidebarMenuButton
                     tooltip={{
+                      children: "Create Folder",
+                      hidden: false,
+                    }}
+                    className="px-2.5 md:px-2 mb-2"
+                  >
+                    <CreateFolderModal>
+                      <FolderKanban className="size-10" />
+                    </CreateFolderModal>
+                  </SidebarMenuButton>
+                  <SidebarMenuButton
+                    tooltip={{
                       children: "Global Search",
                       hidden: false,
                     }}
@@ -121,54 +126,49 @@ export function AppSidebar({ navigationData, ...props }: AppSidebarProps) {
         <SidebarHeader className="gap-3.5 border-b px-3 py-3">
           <div className="flex w-full items-center justify-between">
             <div className="text-base font-medium">{activeItem?.title}</div>
-
-            {activeItem.title === "Collections" && (
-              <div className="flex items-center gap-2 text-primary">
-                <TooltipProvider>
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <Button variant="ghost">
-                        <FolderPlus
-                          className="size-5"
-                          strokeWidth={2}
-                          size={18}
-                        />
-                      </Button>
-                    </TooltipTrigger>
-                    <TooltipContent side="right">Create Folder</TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
-              </div>
-            )}
           </div>
         </SidebarHeader>
         <SidebarContent>
-          <SidebarGroup className="px-0">
-            <SidebarGroupContent className="px-3">
-              <SidebarMenu>
-                {activeItem?.subItems?.map((subItem) => (
-                  <SidebarMenuItem key={subItem.title}>
-                    <SidebarMenuButton
-                      asChild
-                      className="hover:text-primary hover:bg-secondary/30 dark:hover:bg-muted rounded-md py-2"
-                    >
-                      <Link
-                        className={
-                          pathname === subItem.url
-                            ? "bg-accent font-medium"
-                            : ""
-                        }
-                        href={subItem.url}
-                      >
-                        {subItem.title}
-                      </Link>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                ))}
-              </SidebarMenu>
-            </SidebarGroupContent>
-          </SidebarGroup>
-        </SidebarContent>
+  <SidebarGroup className="px-0">
+    <SidebarGroupContent className="px-3">
+      <SidebarMenu>
+        {activeItem?.subItems?.map((subItem) => {
+          const isFavorites = subItem.title === "Favorites";
+        
+          return (
+            <Fragment key={subItem.title}>
+              <SidebarMenuItem>
+                <SidebarMenuButton
+                  asChild
+                  className="hover:text-primary hover:bg-secondary/30 dark:hover:bg-muted rounded-md py-2"
+                >
+                  <Link
+                    className={
+                      pathname === subItem.url ? "bg-accent font-medium" : ""
+                    }
+                    href={subItem.url}
+                  >
+                    {isFavorites ? (
+                      <Heart className="text-destructive" />
+                    ) : (
+                      <FolderKanban className="text-orange-500" />
+                    )}
+                    {subItem.title}
+                  </Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+
+              {isFavorites && (
+                <div className="my-2 h-px w-full bg-border dark:bg-muted/30" />
+              )}
+            </Fragment>
+          );
+        })}
+      </SidebarMenu>
+    </SidebarGroupContent>
+  </SidebarGroup>
+</SidebarContent>
+
       </Sidebar>
     </Sidebar>
   );
