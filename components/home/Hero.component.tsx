@@ -19,11 +19,11 @@ const HeroComponent = () => {
         </div>
         <p className="font-medium">
           Capture, tag, and rule your links with a sleek, brilliant bookmark
-          boss.
+          boss
         </p>
         <div className="my-5">
           <Button  className="cursor-pointer" size="lg">
-            <Link href="/dashboard"> Get Started</Link>
+            <Link href="/bookmarks"> Get Started</Link>
           </Button>
         </div>
       </div>

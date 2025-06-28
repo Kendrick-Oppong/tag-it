@@ -30,6 +30,6 @@ export const actionClient = createSafeActionClient({
 
 export const authActionClient = actionClient.use(async ({ next }) => {
   const { user } = await requireUser();
-
+  
   return next({ ctx: { user } });
 });

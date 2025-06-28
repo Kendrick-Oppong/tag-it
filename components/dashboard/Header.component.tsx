@@ -3,15 +3,9 @@ import React from "react";
 import { ThemeToggle } from "@/components/shared/theme/theme-toggle";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Search, Plus, FolderKanban } from "lucide-react";
+import { Search } from "lucide-react";
 import HeaderMobileComponent from "../shared/header/header.mobile.component";
-import { CreateFolderModal } from "../shared/forms/CreateModal";
-import {
-  Tooltip,
-  TooltipTrigger,
-  TooltipContent,
-  TooltipProvider,
-} from "@/components/ui/tooltip";
+
 
 const HeaderComponent = () => {
   return (
@@ -42,37 +36,6 @@ const HeaderComponent = () => {
           <Search size={20} />
         </Button>
 
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger>
-              <CreateFolderModal>
-                <FolderKanban className="size-5" />
-              </CreateFolderModal>
-            </TooltipTrigger>
-            <TooltipContent className="mt-3" side="bottom">
-              <p>Create Folder</p>
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
-
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Link href="/dashboard/bookmarks/create">
-                <Button variant="ghost">
-                  <Plus
-                    className="size-6 text-primary"
-                    strokeWidth={2}
-                    size={18}
-                  />
-                </Button>
-              </Link>
-            </TooltipTrigger>
-            <TooltipContent className="mt-1" side="bottom">
-              <p>New Bookmark</p>
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
 
         <ThemeToggle />
         <div className="w-8 h-8 rounded-full bg-muted flex items-center justify-center">

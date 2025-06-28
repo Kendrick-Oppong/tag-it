@@ -15,22 +15,22 @@ export const getNavigationData = (
     navMain: [
       {
         title: "Bookmarks",
-        url: "/dashboard/bookmarks",
+        url: "/bookmarks",
         isActive: true,
         subItems: [
-          { title: "All", url: "/dashboard/bookmarks/all" },
-          { title: "Favorites", url: "/dashboard/bookmarks/favorites" },
+          { title: "All", url: "/bookmarks/all" },
+          { title: "Favorites", url: "/bookmarks/favorites" },
           ...(collections?.map((collection) => ({
             title: collection.name,
-            url: `/dashboard/bookmarks/${collection.name.toLowerCase()}`,
+            url: `/bookmarks/${collection.name.toLowerCase()}`,
           })) ?? []),
         ],
       },
       {
         title: "New Bookmark",
-        url: "/dashboard/bookmarks",
+        url: "/bookmarks/create",
         isActive: false,
-        subItems: [{ title: "Create", url: "/dashboard/bookmarks/create" }],
+        subItems: [{ title: "Create", url: "/bookmarks/create" }],
       },
     ],
   };

@@ -74,7 +74,7 @@ export function AppSidebar({ navigationData, ...props }: AppSidebarProps) {
                       >
                         <Icon
                           strokeWidth={`${
-                            item.subItems[0]?.title === "Create" ? 3 : ""
+                            item.subItems[0]?.title === "Create" ? 3 : 2
                           }`}
                           className={`${
                             item.subItems[0]?.title === "Create"
@@ -129,46 +129,47 @@ export function AppSidebar({ navigationData, ...props }: AppSidebarProps) {
           </div>
         </SidebarHeader>
         <SidebarContent>
-  <SidebarGroup className="px-0">
-    <SidebarGroupContent className="px-3">
-      <SidebarMenu>
-        {activeItem?.subItems?.map((subItem) => {
-          const isFavorites = subItem.title === "Favorites";
-        
-          return (
-            <Fragment key={subItem.title}>
-              <SidebarMenuItem>
-                <SidebarMenuButton
-                  asChild
-                  className="hover:text-primary hover:bg-secondary/30 dark:hover:bg-muted rounded-md py-2"
-                >
-                  <Link
-                    className={
-                      pathname === subItem.url ? "bg-accent font-medium" : ""
-                    }
-                    href={subItem.url}
-                  >
-                    {isFavorites ? (
-                      <Heart className="text-destructive" />
-                    ) : (
-                      <FolderKanban className="text-orange-500" />
-                    )}
-                    {subItem.title}
-                  </Link>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
+          <SidebarGroup className="px-0">
+            <SidebarGroupContent className="px-3">
+              <SidebarMenu>
+                {activeItem?.subItems?.map((subItem) => {
+                  const isFavorites = subItem.title === "Favorites";
 
-              {isFavorites && (
-                <div className="my-2 h-px w-full bg-border dark:bg-muted/30" />
-              )}
-            </Fragment>
-          );
-        })}
-      </SidebarMenu>
-    </SidebarGroupContent>
-  </SidebarGroup>
-</SidebarContent>
+                  return (
+                    <Fragment key={subItem.title}>
+                      <SidebarMenuItem>
+                        <SidebarMenuButton
+                          asChild
+                          className="hover:text-primary hover:bg-secondary/30 dark:hover:bg-muted rounded-md py-2"
+                        >
+                          <Link
+                            className={
+                              pathname === subItem.url
+                                ? "bg-accent font-medium"
+                                : ""
+                            }
+                            href={subItem.url}
+                          >
+                            {isFavorites ? (
+                              <Heart className="text-destructive" />
+                            ) : (
+                              <FolderKanban className="text-orange-500" />
+                            )}
+                            {subItem.title}
+                          </Link>
+                        </SidebarMenuButton>
+                      </SidebarMenuItem>
 
+                      {isFavorites && (
+                        <div className="my-2 h-px w-full bg-border dark:bg-muted/30" />
+                      )}
+                    </Fragment>
+                  );
+                })}
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
+        </SidebarContent>
       </Sidebar>
     </Sidebar>
   );

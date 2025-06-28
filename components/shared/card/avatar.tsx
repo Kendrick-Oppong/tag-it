@@ -12,9 +12,9 @@ const Avatar = ({ src, alt }: Readonly<Props>) => {
     <Image
       src={src || "https://avatar.vercel.sh/rauchg?size=24"}
       alt={alt}
-      width={24}
-      height={24}
-      className={"h-6 w-6 rounded-full"}
+      width={28}
+      height={28}
+      className={"h-7 w-7 rounded-full"}
       onError={(e) =>
         (e.currentTarget.src = "https://avatar.vercel.sh/rauchg?size=24")
       }
