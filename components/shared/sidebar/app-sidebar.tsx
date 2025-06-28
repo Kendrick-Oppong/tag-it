@@ -1,7 +1,7 @@
 "use client";
 
 import { Fragment, useState } from "react";
-import { Search, Bookmark, FolderKanban, Plus, Heart } from "lucide-react";
+import { Search, Bookmark, FolderKanban, Plus } from "lucide-react";
 
 import {
   Sidebar,
@@ -133,7 +133,7 @@ export function AppSidebar({ navigationData, ...props }: AppSidebarProps) {
             <SidebarGroupContent className="px-3">
               <SidebarMenu>
                 {activeItem?.subItems?.map((subItem) => {
-                  const isFavorites = subItem.title === "Favorites";
+                  const isAll = subItem.title === "All";
 
                   return (
                     <Fragment key={subItem.title}>
@@ -150,17 +150,15 @@ export function AppSidebar({ navigationData, ...props }: AppSidebarProps) {
                             }
                             href={subItem.url}
                           >
-                            {isFavorites ? (
-                              <Heart className="text-destructive" />
-                            ) : (
+                            
                               <FolderKanban className="text-orange-500" />
-                            )}
+                            
                             {subItem.title}
                           </Link>
                         </SidebarMenuButton>
                       </SidebarMenuItem>
 
-                      {isFavorites && (
+                      {isAll && (
                         <div className="my-2 h-px w-full bg-border dark:bg-muted/30" />
                       )}
                     </Fragment>

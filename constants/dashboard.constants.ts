@@ -19,7 +19,6 @@ export const getNavigationData = (
         isActive: true,
         subItems: [
           { title: "All", url: "/bookmarks/all" },
-          { title: "Favorites", url: "/bookmarks/favorites" },
           ...(collections?.map((collection) => ({
             title: collection.name,
             url: `/bookmarks/${collection.name.toLowerCase()}`,

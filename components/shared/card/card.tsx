@@ -14,14 +14,13 @@ import {
   TooltipContent,
   TooltipProvider,
 } from "@/components/ui/tooltip";
-import { Bookmark, Collection } from "@prisma/client";
 
 import { Star, Folder, Pencil, Trash, Copy, ExternalLink } from "lucide-react";
 import React from "react";
 import Thumbnail from "./thumbnail";
 import Avatar from "./avatar";
+import { BookmarkProps } from "@/types/types";
 
-type BookmarkProps = Bookmark & { collection: Collection | null };
 
 const BookMarkCard = ({ bookmark }: { bookmark: BookmarkProps }) => {
   return (

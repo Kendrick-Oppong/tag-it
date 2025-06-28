@@ -22,6 +22,14 @@ import {
 } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { Collection } from "@prisma/client";
+import { useAppDispatch, useAppSelector } from "@/lib/redux/hooks";
+import {
+  selectBookmarkFilter,
+  setFilterBy,
+  setSearchTerm,
+  setSortBy,
+} from "@/lib/redux/features/filter/bookmarkFilterSlice";
+import { SortOption } from "@/types/types";
 
 const FilteringComponent = ({
   collections,
@@ -29,8 +37,10 @@ const FilteringComponent = ({
   collections?: Collection[];
 }) => {
   const pathname = usePathname();
+  const dispatch = useAppDispatch();
+  const { searchTerm, sortBy, filterBy } = useAppSelector(selectBookmarkFilter);
 
-  const hideFilter = /\/dashboard\/bookmarks\/(create|edit)/.test(pathname);
+  const hideFilter = /\/bookmarks\/(create|edit)/.test(pathname);
   if (hideFilter) return null;
 
   return (
@@ -41,6 +51,8 @@ const FilteringComponent = ({
           <Input
             placeholder="Search by title"
             className="w-full border-primary dark:border-border shadow-sm pl-10 pr-4 py-2"
+            value={searchTerm}
+            onChange={(e) => dispatch(setSearchTerm(e.target.value))}
           />
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-5 w-5" />
         </div>
@@ -48,7 +60,10 @@ const FilteringComponent = ({
         {/* Filter + Sort */}
         <div className="flex items-center gap-3">
           {/* Sort Select */}
-          <Select>
+          <Select
+            value={sortBy}
+            onValueChange={(value) => dispatch(setSortBy(value as SortOption))}
+          >
             <SelectTrigger className="w-[160px] border-primary dark:border-border">
               <List className="mr-2 h-4 w-4" />
               <SelectValue placeholder="Sort" />
@@ -74,7 +89,10 @@ const FilteringComponent = ({
           </Select>
 
           {/* Filter Select with Group */}
-          <Select>
+          <Select
+            value={filterBy}
+            onValueChange={(value) => dispatch(setFilterBy(value))}
+          >
             <SelectTrigger className="w-[200px] border-primary dark:border-border">
               <Filter className="mr-2 h-4 w-4" />
               <SelectValue placeholder="Filter by" />

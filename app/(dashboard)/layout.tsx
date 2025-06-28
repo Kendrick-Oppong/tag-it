@@ -13,6 +13,7 @@ import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { redirect } from "next/navigation";
 import { fetchUserData } from "@/lib/api";
 import { getNavigationData } from "@/constants/dashboard.constants";
+import StoreProvider from "../StoreProvider";
 
 export default async function DashboardLayout({
   children,
@@ -31,7 +32,8 @@ export default async function DashboardLayout({
   const navigationData = getNavigationData(collections ?? []);
 
   return (
-    <>
+    <StoreProvider>
+      
       <HeaderComponent />
       <SidebarProvider className="w-auto">
         <AppSidebar navigationData={navigationData} />
@@ -49,6 +51,6 @@ export default async function DashboardLayout({
           </section>
         </SidebarInset>
       </SidebarProvider>
-    </>
+    </StoreProvider>
   );
 }
