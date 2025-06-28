@@ -19,25 +19,20 @@ export default function BookmarksClientWrapper({
 
   return (
     <div className="p-6">
-        <div className="flex items-center justify-between my-4">
-          <h1 className="text-3xl font-bold">All Bookmarks</h1>
-          <p className="font-semibold">
-            Total{" "}
-            <span className="text-destructive">
-              ({filteredBookmarks.length})
-            </span>
-          </p>
-        </div>
-        <FilteringComponent collections={collections} />
+      <div className="flex items-center justify-between my-4">
+        <h1 className="text-3xl font-bold">All Bookmarks</h1>
+        <p className="font-semibold">
+          Total{" "}
+          <span className="text-destructive">({filteredBookmarks.length})</span>
+        </p>
+      </div>
+      <FilteringComponent collections={collections} />
       {filteredBookmarks.length > 0 ? (
-        
-
-          <section className="grid grid-cols-[repeat(auto-fill,minmax(290px,1fr))] gap-3 mt-6">
-            {filteredBookmarks.map((bookmark) => (
-              <BookMarkCard bookmark={bookmark} key={bookmark?.id} />
-            ))}
-          </section>
-        
+        <section className="grid grid-cols-[repeat(auto-fill,minmax(290px,1fr))] gap-3 mt-6">
+          {filteredBookmarks.map((bookmark) => (
+            <BookMarkCard bookmark={bookmark} key={bookmark?.id} />
+          ))}
+        </section>
       ) : (
         <div className="flex flex-col gap-5 items-center justify-center text-center mt-16 px-4">
           <div className="relative bg-gradient-to-tr from-purple-600 to-indigo-600 text-white rounded-full p-5 shadow-lg animate-pulse">

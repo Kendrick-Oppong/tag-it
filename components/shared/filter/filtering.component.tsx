@@ -20,7 +20,6 @@ import {
   ArrowUpZA,
   Folder,
 } from "lucide-react";
-import { usePathname } from "next/navigation";
 import { Collection } from "@prisma/client";
 import { useAppDispatch, useAppSelector } from "@/lib/redux/hooks";
 import {
@@ -36,13 +35,10 @@ const FilteringComponent = ({
 }: {
   collections?: Collection[];
 }) => {
-  const pathname = usePathname();
   const dispatch = useAppDispatch();
   const { searchTerm, sortBy, filterBy } = useAppSelector(selectBookmarkFilter);
 
-  const hideFilter = /\/bookmarks\/(create|edit)/.test(pathname);
-  if (hideFilter) return null;
-
+  
   return (
     <header className="mb-8">
       <div className="flex flex-col sm:flex-row sm:items-center gap-4">

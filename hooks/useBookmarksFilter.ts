@@ -1,12 +1,41 @@
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { useAppSelector } from "@/lib/redux/hooks";
 import { selectBookmarkFilter } from "@/lib/redux/features/filter/bookmarkFilterSlice";
 import { BookmarkProps } from "@/types/types";
-
-
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 export function useBookmarksFilter(bookmarks: BookmarkProps[]) {
   const { searchTerm, sortBy, filterBy } = useAppSelector(selectBookmarkFilter);
+
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    const params = new URLSearchParams(searchParams.toString());
+
+    // Set or remove query parameters based on state
+    if (searchTerm) {
+      params.set("search", searchTerm);
+    } else {
+      params.delete("search");
+    }
+
+    if (sortBy) {
+      params.set("sort", sortBy);
+    } else {
+      params.delete("sort");
+    }
+
+    if (filterBy && filterBy !== "all") {
+      params.set("filter", filterBy);
+    } else {
+      params.delete("filter");
+    }
+
+    // Push the new query string (shallow replace)
+    router.replace(`${pathname}?${params.toString()}`, { scroll: false });
+  }, [searchTerm, sortBy, filterBy, searchParams, router, pathname]);
 
   const filteredBookmarks = useMemo(() => {
     let filtered = [...bookmarks];
