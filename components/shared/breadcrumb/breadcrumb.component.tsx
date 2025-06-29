@@ -18,7 +18,7 @@ export function BreadcrumbComponent() {
         {category ? (
           <>
             <BreadcrumbItem>
-              <BreadcrumbLink href={`/dashboard/${category}`}>
+              <BreadcrumbLink href={`/${category}`}>
                 {capitalize(category)}
               </BreadcrumbLink>
             </BreadcrumbItem>
