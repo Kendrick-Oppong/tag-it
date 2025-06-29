@@ -11,7 +11,6 @@ import {
 } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
 import {
-  Filter,
   Heart,
   List,
   Search,
@@ -60,8 +59,8 @@ const FilteringComponent = ({
             value={sortBy}
             onValueChange={(value) => dispatch(setSortBy(value as SortOption))}
           >
-            <SelectTrigger className="w-[160px] border-primary dark:border-border">
-              <List className="mr-2 h-4 w-4" />
+            <SelectTrigger className="w-[200px] border-primary dark:border-border">
+              {/* <List className="mr-2 h-4 w-4" /> */}
               <SelectValue placeholder="Sort" />
             </SelectTrigger>
             <SelectContent>
@@ -84,13 +83,11 @@ const FilteringComponent = ({
             </SelectContent>
           </Select>
 
-          {/* Filter Select with Group */}
           <Select
             value={filterBy}
             onValueChange={(value) => dispatch(setFilterBy(value))}
           >
             <SelectTrigger className="w-[200px] border-primary dark:border-border">
-              <Filter className="mr-2 h-4 w-4" />
               <SelectValue placeholder="Filter by" />
             </SelectTrigger>
             <SelectContent>

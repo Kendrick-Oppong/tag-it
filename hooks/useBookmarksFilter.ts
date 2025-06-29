@@ -16,7 +16,7 @@ export function useBookmarksFilter(bookmarks: BookmarkProps[]) {
 
     // Set or remove query parameters based on state
     if (searchTerm) {
-      params.set("search", searchTerm);
+      params.set("search", searchTerm.trim());
     } else {
       params.delete("search");
     }
@@ -42,7 +42,7 @@ export function useBookmarksFilter(bookmarks: BookmarkProps[]) {
 
     if (searchTerm) {
       filtered = filtered.filter((b) =>
-        b.title.toLowerCase().includes(searchTerm.toLowerCase())
+        b.title.toLowerCase().trim().includes(searchTerm.toLowerCase().trim())
       );
     }
 
