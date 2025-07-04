@@ -1,5 +1,5 @@
 interface LoadingType {
-  loadingType: "bookmarks" | "favorites" | "card-detail" | "list";
+  loadingType: "bookmarks" | "favorites" | "card-detail" | "list" | "avatar";
 }
 
 const LoadingSkeleton = ({ loadingType }: LoadingType) => {
@@ -62,6 +62,11 @@ const LoadingSkeleton = ({ loadingType }: LoadingType) => {
       break;
     case "list":
       content = <div>Loading list...</div>;
+      break;
+    case "avatar":
+      content = (
+        <div className="h-8 w-8 bg-gray-200 dark:bg-muted-foreground/40 rounded animate-pulse" />
+      );
       break;
     default:
       content = (
