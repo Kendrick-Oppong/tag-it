@@ -13,6 +13,7 @@ import {
   selectHighlightedBookmarkId,
   setHighlightedBookmarkId,
 } from "@/lib/redux/features/ui/uiSlice";
+import { useBreadcrumb } from "@/hooks/use-Breadcrumb";
 
 export default function BookmarksClientWrapper({
   bookmarks,
@@ -24,7 +25,8 @@ export default function BookmarksClientWrapper({
   const filteredBookmarks = useBookmarksFilter(bookmarks);
   const dispatch = useAppDispatch();
   const highlightId = useAppSelector(selectHighlightedBookmarkId);
-
+  const {capitalize,subcategory } = useBreadcrumb()
+  
   // 🧼 Auto-clear highlight after 3 seconds
   useEffect(() => {
     if (highlightId) {
@@ -38,7 +40,9 @@ export default function BookmarksClientWrapper({
   return (
     <div className="p-6">
       <div className="flex items-center justify-between my-4">
-        <h1 className="text-3xl font-bold">All Bookmarks</h1>
+        <h1 className="text-xl font-bold">
+          Bookmarks -  <span className="text-primary">{capitalize(subcategory)}</span> 
+        </h1>
         <p className="font-semibold">
           Total{" "}
           <span className="text-destructive">({filteredBookmarks.length})</span>
