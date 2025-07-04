@@ -23,7 +23,7 @@ import { BookmarkProps } from "@/types/types";
 
 const BookMarkCard = ({
   bookmark,
-  highlight = true,
+  highlight = false,
 }: {
   bookmark: BookmarkProps;
   highlight: boolean;
