@@ -36,6 +36,7 @@ const FilteringComponent = ({
 }) => {
   const dispatch = useAppDispatch();
   const { searchTerm, sortBy, filterBy } = useAppSelector(selectBookmarkFilter);
+  const hasCollections = collections && collections.length > 0
 
   return (
     <header className="mb-8">
@@ -103,10 +104,14 @@ const FilteringComponent = ({
                 </SelectItem>
               </SelectGroup>
               <SelectGroup>
-                <SelectLabel>Collections</SelectLabel>
-                <Separator />
+                {hasCollections && (
+                  <>
+                    <SelectLabel>Collections</SelectLabel>
+                    <Separator />
+                  </>
+                )}
 
-                {collections?.map((collection) => (
+                {hasCollections && collections?.map((collection) => (
                   <SelectItem key={collection.id} value={collection.name}>
                     <Folder className="mr-2 h-4 w-4" />
                     {collection.name}
