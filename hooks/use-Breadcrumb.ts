@@ -6,9 +6,10 @@ export function useBreadcrumb() {
   // Split the pathname by '/' and filter out empty segments
   const pathSegments = pathname.split("/").filter(Boolean); // ["dashboard", "bookmarks", "all"]
 
-  // Decode the segments
-  const category = decodeURIComponent(pathSegments[0] || ""); // "bookmarks"
-  const subcategory = decodeURIComponent(pathSegments[1] || ""); // "all"
+
+  // Extract category and subcategory
+  const category = pathSegments[0] || ""; // "bookmarks"
+  const subcategory = pathSegments[1] || ""; // "all"
 
   const capitalize = (str: string) =>
     str.charAt(0).toUpperCase() + str.slice(1);
