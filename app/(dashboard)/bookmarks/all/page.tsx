@@ -3,16 +3,16 @@ import { fetchUserBookmarks, fetchUserData } from "@/lib/api";
 import { BookOpen } from "lucide-react";
 
 export default async function AllBookmarks() {
-  const { bookmarks } = await fetchUserBookmarks();
-  const { collections } = await fetchUserData();
+  const [{ bookmarks }, { collections }] = await Promise.all([
+    fetchUserBookmarks(),
+    fetchUserData(),
+  ]);
 
-  const hasBookmarks = bookmarks && bookmarks.length > 0;
-
-  if (!hasBookmarks) {
+  if (!bookmarks?.length) {
     return (
-      <div className="flex pt-6 flex-col gap-5 items-center justify-center text-center mt-32 px-4 ">
-        <div className="relative bg-gradient-to-tr from-purple-600 to-indigo-600 text-white rounded-full p-5 shadow-lganimate-pulse">
-          <BookOpen className="w-10 h-10" />
+      <div className="flex pt-6 flex-col gap-5 items-center justify-center text-center mt-32 px-4">
+        <div className="relative bg-gradient-to-tr from-purple-600 to-indigo-600 text-white rounded-full p-5 shadow-lg animate-pulse">
+          <BookOpen className="size-10" />
         </div>
         <h2 className="text-2xl font-bold text-primary">No bookmarks yet</h2>
         <p className="max-w-md text-muted-foreground">
@@ -22,6 +22,7 @@ export default async function AllBookmarks() {
       </div>
     );
   }
+
   return (
     <BookmarksClientWrapper
       bookmarks={bookmarks}
