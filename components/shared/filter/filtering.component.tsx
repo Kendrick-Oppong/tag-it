@@ -68,14 +68,17 @@ const FilteringComponent = ({
                 <ArrowDownAZ className="mr-2 h-4 w-4" />
                 Title (A-Z)
               </SelectItem>
+              <Separator />
               <SelectItem value="title-desc">
                 <ArrowUpZA className="mr-2 h-4 w-4" />
                 Title (Z-A)
               </SelectItem>
+              <Separator />
               <SelectItem value="date-new">
                 <CalendarDays className="mr-2 h-4 w-4" />
                 Date (Newest)
               </SelectItem>
+              <Separator />
               <SelectItem value="date-old">
                 <CalendarDays className="mr-2 h-4 w-4" />
                 Date (Oldest)
@@ -111,12 +114,13 @@ const FilteringComponent = ({
                   </>
                 )}
 
-                {hasCollections && collections?.map((collection) => (
-                  <SelectItem key={collection.id} value={collection.name}>
-                    <Folder className="mr-2 h-4 w-4" />
-                    {collection.name}
-                  </SelectItem>
-                ))}
+                {hasCollections &&
+                  collections?.map((collection) => (
+                    <SelectItem key={collection.id} value={collection.name}>
+                      <Folder className="mr-2 h-4 w-4" />
+                      {collection.name}
+                    </SelectItem>
+                  ))}
               </SelectGroup>
             </SelectContent>
           </Select>
