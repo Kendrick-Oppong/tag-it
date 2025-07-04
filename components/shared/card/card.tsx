@@ -21,12 +21,19 @@ import Thumbnail from "./thumbnail";
 import Avatar from "./avatar";
 import { BookmarkProps } from "@/types/types";
 
-
-const BookMarkCard = ({ bookmark }: { bookmark: BookmarkProps }) => {
+const BookMarkCard = ({
+  bookmark,
+  highlight = true,
+}: {
+  bookmark: BookmarkProps;
+  highlight: boolean;
+}) => {
   return (
     <Card
       key={bookmark.id}
-      className="relative border bg-background gap-0 pt-5 pb-2 space-y-4"
+      className={`relative border bg-background pt-5 gap-0 pb-2 space-y-4 transition-all duration-500 ${
+        highlight ? "border-[1.5px] animate-pulse-border" : ""
+      }`}
     >
       <CardHeader className="space-y-1">
         <div className="flex items-center justify-between gap-3">
@@ -113,7 +120,7 @@ const BookMarkCard = ({ bookmark }: { bookmark: BookmarkProps }) => {
                 </Button>
               </TooltipTrigger>
               <TooltipContent>
-                <p>Copy</p>
+                <p>Copy Link</p>
               </TooltipContent>
             </Tooltip>
           </TooltipProvider>

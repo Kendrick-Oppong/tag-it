@@ -41,9 +41,10 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+  --animate-pulse-border:pulse-border 1.5s ease-in-out infinite
 }
 
-:root {
+:root { 
   --background: hsl(229, 57%, 100%);
   --foreground: hsl(229, 63%, 4%);
   --muted: hsl(229, 12%, 86%);
@@ -138,6 +139,19 @@
     @apply !w-full;
   }
 }
+
+@layer utilities {
+  @keyframes pulse-border {
+    0%, 100% {
+      box-shadow: 0 0 0 0 rgba(12, 15, 240, 0.6); 
+    }
+    50% {
+      box-shadow: 0 0 0 2px rgba(43, 46, 240, 0.6);
+    }
+  }
+
+}
+
 
 @layer components {
   .hero-bg {

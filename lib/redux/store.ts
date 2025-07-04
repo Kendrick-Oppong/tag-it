@@ -1,9 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
 import bookmarkFilterReducer from "./features/filter/bookmarkFilterSlice";
+import uiReducer from "./features/ui/uiSlice";
 
 export const makeStore = () => {
   return configureStore({
-    reducer: { bookmarkFilter: bookmarkFilterReducer },
+    reducer: { bookmarkFilter: bookmarkFilterReducer, ui: uiReducer },
   });
 };
 

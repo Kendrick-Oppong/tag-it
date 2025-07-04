@@ -7,15 +7,33 @@ import FilteringComponent from "@/components/shared/filter/filtering.component";
 import BookMarkCard from "@/components/shared/card/card";
 import { useBookmarksFilter } from "@/hooks/useBookmarksFilter";
 import { BookmarkProps } from "@/types/types";
+import { useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "@/lib/redux/hooks";
+import {
+  selectHighlightedBookmarkId,
+  setHighlightedBookmarkId,
+} from "@/lib/redux/features/ui/uiSlice";
 
 export default function BookmarksClientWrapper({
   bookmarks,
   collections,
-}: {
+}: Readonly<{
   bookmarks: BookmarkProps[];
   collections: Collection[];
-}) {
+}>) {
   const filteredBookmarks = useBookmarksFilter(bookmarks);
+  const dispatch = useAppDispatch();
+  const highlightId = useAppSelector(selectHighlightedBookmarkId);
+
+  // 🧼 Auto-clear highlight after 3 seconds
+  useEffect(() => {
+    if (highlightId) {
+      const timer = setTimeout(() => {
+        dispatch(setHighlightedBookmarkId(null));
+      }, 6000);
+      return () => clearTimeout(timer);
+    }
+  }, [dispatch, highlightId]);
 
   return (
     <div className="p-6">
@@ -30,7 +48,11 @@ export default function BookmarksClientWrapper({
       {filteredBookmarks.length > 0 ? (
         <section className="grid grid-cols-[repeat(auto-fill,minmax(290px,1fr))] gap-3 mt-6">
           {filteredBookmarks.map((bookmark) => (
-            <BookMarkCard bookmark={bookmark} key={bookmark?.id} />
+            <BookMarkCard
+              bookmark={bookmark}
+              key={bookmark?.id}
+              highlight={bookmark.id === highlightId}
+            />
           ))}
         </section>
       ) : (

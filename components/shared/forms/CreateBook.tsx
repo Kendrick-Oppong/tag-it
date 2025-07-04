@@ -31,6 +31,8 @@ import { useAction } from "next-safe-action/hooks";
 import { Collection } from "@prisma/client";
 import { toast } from "sonner";
 import { redirect } from "next/navigation";
+import { useAppDispatch } from "@/lib/redux/hooks";
+import { setHighlightedBookmarkId } from "@/lib/redux/features/ui/uiSlice";
 
 export default function CreateBookmark({
   collections,
@@ -51,10 +53,13 @@ export default function CreateBookmark({
     },
   });
 
+  // auto fetch url meta data
   const url = form.watch("url");
   const formValues = form.watch();
   useFetchBookmarkMetadata(url, form);
 
+  const dispatch = useAppDispatch();
+ 
   const { execute, isPending } = useAction(createBookmark, {
     onError: () => {
       toast.error("Failed to create bookmark");
@@ -63,8 +68,9 @@ export default function CreateBookmark({
     onSuccess: ({ data }) => {
       toast.success(data?.message);
       form.reset({});
+      dispatch(setHighlightedBookmarkId(data?.bookmarkId as string));
       setTimeout(() => {
-        redirect("/dashboard");
+        redirect("/bookmarks");
       }, 1000);
     },
   });

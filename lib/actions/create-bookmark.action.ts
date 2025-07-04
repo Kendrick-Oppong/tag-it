@@ -12,15 +12,15 @@ export const createBookmark = authActionClient
       flattenValidationErrors(ve).fieldErrors,
   })
   .action(async ({ parsedInput: data, ctx: { user } }) => {
-
     const dbUser = await prisma.user.findUnique({
-      where: { kindeId: user.id }, 
+      where: { kindeId: user.id },
     });
 
     if (!dbUser) {
       return {
         success: false,
         message: "User not found in database",
+        bookmarkId: null,
       };
     }
 
@@ -36,10 +36,14 @@ export const createBookmark = authActionClient
       collectionId: data.collectionId,
     };
 
-    await prisma.bookmark.create({ data: bookmarkData });
+    const createdBookmark = await prisma.bookmark.create({
+      data: bookmarkData,
+    });
+
     revalidatePath("/dashboard/bookmarks/all");
     return {
       success: true,
       message: "Bookmark created successfully",
+      bookmarkId: createdBookmark?.id,
     };
   });

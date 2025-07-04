@@ -37,7 +37,6 @@ const FilteringComponent = ({
   const dispatch = useAppDispatch();
   const { searchTerm, sortBy, filterBy } = useAppSelector(selectBookmarkFilter);
 
-  
   return (
     <header className="mb-8">
       <div className="flex flex-col sm:flex-row sm:items-center gap-4">

@@ -2,10 +2,9 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../../store";
 import { BookmarkFilterState, SortOption } from "@/types/types";
 
-
 const initialState: BookmarkFilterState = {
   searchTerm: "",
-  sortBy: "title-asc", 
+  sortBy: "date-new",
   filterBy: "all",
 };
 
@@ -37,6 +36,8 @@ export const selectBookmarkFilter = (state: {
 
 export const selectSearchTerm = (state: RootState) =>
   state.bookmarkFilter.searchTerm;
+
 export const selectSortBy = (state: RootState) => state.bookmarkFilter.sortBy;
+
 export const selectFilterBy = (state: RootState) =>
   state.bookmarkFilter.filterBy;

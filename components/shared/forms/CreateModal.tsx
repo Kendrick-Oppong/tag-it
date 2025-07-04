@@ -47,7 +47,6 @@ export function CreateFolderModal({
       if (error) {
         const errorMessage = error?.validationErrors?.fieldErrors?.name?.[0];
         toast.error(errorMessage);
-        console.log("first error", errorMessage);
       }
       if (error.serverError) {
         toast.error("Failed to create folder");

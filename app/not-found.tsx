@@ -11,7 +11,7 @@ const PageNotFound = () => {
           Uh-oh!
         </p>
 
-        <p className="text-muted-foreground">We couldn&apos;t find that page.</p>
+        <p className="text-muted-foreground">We couldn&apos;t find that page</p>
 
         <Button className="cursor-pointer" size="lg">
           <Link href="/"> Go Back</Link>

@@ -20,7 +20,6 @@ export function useFetchBookmarkMetadata(
           `/api/link-preview?url=${encodeURIComponent(url)}`
         );
         const preview = await response.json();
-        console.log("preview", preview);
         if ("images" in preview) {
           form.setValue("title", preview.siteName ?? "");
           form.setValue("thumbnailUrl", preview.images[0] ?? "");
