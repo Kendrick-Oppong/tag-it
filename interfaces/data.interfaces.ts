@@ -6,10 +6,5 @@ export interface NavigationItem  {
 };
 
 export interface NavigationData  {
-  user: {
-    name: string;
-    email: string;
-    avatar: string;
-  };
   navMain: NavigationItem[];
 };

@@ -33,8 +33,8 @@ type FormData = z.infer<typeof collectionSchema>;
 export function CreateFolderModal({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-    const [open, setOpen] = useState(false);
-    const router = useRouter();
+  const [open, setOpen] = useState(false);
+  const router = useRouter();
   const form = useForm<FormData>({
     resolver: zodResolver(collectionSchema),
     defaultValues: {
@@ -61,8 +61,8 @@ export function CreateFolderModal({
       if (data?.success) {
         toast.success(data?.message);
         form.reset({});
-          setOpen(false);
-          router.refresh()
+        router.push(`/bookmarks/${data.collection?.name}`.toLowerCase());
+        setOpen(false);
       }
     },
   });

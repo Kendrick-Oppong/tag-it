@@ -4,7 +4,7 @@ import { prisma } from "@/lib/prisma";
 import { authActionClient } from "./safe-action";
 import { randomUUID } from "crypto";
 import { collectionSchema } from "@/validators/form";
-import { revalidatePath } from "next/cache";
+import { revalidateTag } from "next/cache";
 
 export const createCollection = authActionClient
   .schema(collectionSchema)
@@ -23,7 +23,7 @@ export const createCollection = authActionClient
     const existingCollection = await prisma.collection.findFirst({
       where: {
         userId: dbUser.id,
-        name
+        name,
       },
     });
 
@@ -42,8 +42,7 @@ export const createCollection = authActionClient
         userId: dbUser.id,
       },
     });
-    revalidatePath("/dashboard");
-
+    revalidateTag("bookmarks");
     return {
       success: true,
       message: "Collection created successfully",

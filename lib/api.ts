@@ -14,14 +14,13 @@ export const fetchUserData = cache(async () => {
       where: { userId: dbUser?.id },
     });
 
+
     return { collections };
   } catch {
-    return {
-      success: false,
-      message: "Failed to fetch user data",
-    };
+    return { collections: [] }; 
+
   }
-});
+})
 
 export const fetchUserBookmarks = cache(
   async (page = 1, collectionName?: string) => {
