@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { requireUser } from "@/lib/actions/require-user.action";
 import { cache } from "react";
+import { Prisma } from "@prisma/client";
 
 export const fetchUserData = cache(async () => {
   try {
@@ -22,8 +23,8 @@ export const fetchUserData = cache(async () => {
   }
 });
 
-export const fetchUserBookmarks = cache(async () => {
-  try {
+export const fetchUserBookmarks = cache(
+  async (page = 1, collectionName?: string) => {
     const { user } = await requireUser();
     const dbUser = await prisma.user.findUnique({
       where: { kindeId: user.id },
@@ -31,69 +32,66 @@ export const fetchUserBookmarks = cache(async () => {
 
     if (!dbUser) {
       return {
-        success: false,
-        message: "User not found in database",
+        bookmarks: [],
+        totalCount: 0,
+        totalPages: 0,
+        error: "User not found",
       };
     }
 
-    const bookmarks = await prisma.bookmark.findMany({
-      where: { userId: dbUser.id },
-      include: {
-        collection: true,
-      },
-      orderBy: {
-        createdAt: "desc",
-      },
-    });
+    const PAGE_SIZE = 5;
+    const skip = (page - 1) * PAGE_SIZE;
 
-    return {
-      success: true,
-      bookmarks,
+    let whereClause: Prisma.BookmarkWhereInput = {
+      userId: dbUser.id,
     };
-  } catch {
-    return {
-      success: false,
-      message: "Failed to fetch user bookmarks",
-    };
-  }
-});
 
-export const fetchFavoriteBookmarks = cache(async () => {
-  try {
-    const { user } = await requireUser();
-    const dbUser = await prisma.user.findUnique({
-      where: { kindeId: user.id },
-    });
+    if (collectionName) {
+      const existingCollection = await prisma.collection.findFirst({
+        where: {
+          userId: dbUser.id,
+          name: {
+            equals: collectionName,
+            mode: "insensitive",
+          },
+        },
+      });
 
-    if (!dbUser) {
-      return {
-        success: false,
-        message: "User not found in database",
+      if (!existingCollection) {
+        return {
+          bookmarks: [],
+          totalCount: 0,
+          totalPages: 0,
+          error: `Collection "${collectionName}" not found`,
+        };
+      }
+
+      whereClause = {
+        ...whereClause,
+        collection: {
+          name: {
+            equals: collectionName,
+            mode: "insensitive",
+          },
+        },
       };
     }
 
-    const bookmarks = await prisma.bookmark.findMany({
-      where: {
-        userId: dbUser.id,
-        isFavorite: true,
-      },
-      include: {
-        collection: true,
-      },
-      orderBy: {
-        createdAt: "desc",
-      },
-    });
+    const [bookmarks, totalCount] = await Promise.all([
+      prisma.bookmark.findMany({
+        where: whereClause,
+        include: { collection: true },
+        orderBy: { createdAt: "desc" },
+        take: PAGE_SIZE,
+        skip,
+      }),
+      prisma.bookmark.count({ where: whereClause }),
+    ]);
 
     return {
-      success: true,
       bookmarks,
-    };
-  } catch (error) {
-    console.error("Error fetching favorite bookmarks:", error);
-    return {
-      success: false,
-      message: "Failed to fetch favorite bookmarks",
+      totalCount,
+      totalPages: Math.ceil(totalCount / PAGE_SIZE),
     };
   }
-});
+);
