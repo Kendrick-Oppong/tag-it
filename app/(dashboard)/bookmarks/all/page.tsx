@@ -1,16 +1,23 @@
 import BookmarksClientWrapper from "@/components/dashboard/BookmarksClientWrapper";
 import { fetchUserBookmarks, fetchUserData } from "@/lib/api";
 import { BookOpen } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
-export default async function AllBookmarks() {
-  const [{ bookmarks }, { collections }] = await Promise.all([
-    fetchUserBookmarks(),
-    fetchUserData(),
-  ]);
+export default async function AllBookmarks({
+  searchParams,
+}: Readonly<{
+  searchParams: Promise<{ page?: string }>;
+}>) {
+  const { page } = await searchParams;
+  const currentPage = Number(page) || 1;
+
+  const [{ bookmarks, totalCount, totalPages }, { collections }] =
+    await Promise.all([fetchUserBookmarks(currentPage), fetchUserData()]);
 
   if (!bookmarks?.length) {
     return (
-      <div className="flex pt-6 flex-col gap-5 items-center justify-center text-center mt-32 px-4">
+      <div className="flex pt-6 flex-col gap-5 items-center justify-center text-center mt-24 px-4">
         <div className="relative bg-gradient-to-tr from-purple-600 to-indigo-600 text-white rounded-full p-5 shadow-lg animate-pulse">
           <BookOpen className="size-10" />
         </div>
@@ -19,6 +26,7 @@ export default async function AllBookmarks() {
           You haven’t added any bookmarks. Start exploring and save your
           favorite items to easily access them later.
         </p>
+        <Button className="text-base"><Link href="/bookmarks/create">Add Bookmark</Link> </Button>
       </div>
     );
   }
@@ -27,6 +35,9 @@ export default async function AllBookmarks() {
     <BookmarksClientWrapper
       bookmarks={bookmarks}
       collections={collections ?? []}
+      totalCount={totalCount}
+      totalPages={totalPages}
+      currentPage={currentPage}
     />
   );
 }
