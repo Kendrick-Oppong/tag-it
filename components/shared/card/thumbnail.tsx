@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { HTMLProps } from "react";
+import { HTMLProps, useState } from "react";
 
 type Props = {
   src: string;
@@ -19,16 +19,18 @@ export default function Thumbnail({
   className,
 }: Readonly<Props>) {
   const defaultSrc = "https://placehold.net/10-600x800.png";
+  const [imgSrc, setImgSrc] = useState(src);
+
   return (
     <Image
-      src={src}
+      src={imgSrc}
       alt={alt}
       width={width}
       height={height}
       className={className}
       priority
       quality={85}
-      onError={(e) => (e.currentTarget.src = defaultSrc)}
+      onError={() => setImgSrc(defaultSrc)}
     />
   );
 }
