@@ -12,7 +12,7 @@ export function useBookmarksFilter(bookmarks: BookmarkProps[]) {
   const searchParams = useSearchParams();
 
   useEffect(() => {
-    const params = new URLSearchParams(searchParams.toString());
+    const params = new URLSearchParams(searchParams.toString().toLowerCase().trim());
 
     // Set or remove query parameters based on state
     if (searchTerm) {

@@ -21,7 +21,7 @@ export default function Thumbnail({
   const defaultSrc = "https://placehold.net/10-600x800.png";
   return (
     <Image
-      src={src || defaultSrc}
+      src={src}
       alt={alt}
       width={width}
       height={height}
