@@ -23,7 +23,7 @@ export default function Thumbnail({
 
   return (
     <Image
-      src={imgSrc}
+      src={imgSrc || defaultSrc}
       alt={alt}
       width={width}
       height={height}

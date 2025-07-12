@@ -59,15 +59,14 @@ export default function BookmarkCardPreview({
         </div>
       </CardHeader>
       <CardContent>
-        {bookmark.thumbnailUrl && (
-          <Thumbnail
-            src={bookmark.thumbnailUrl}
-            height={192}
-            width={192}
-            alt={`${bookmark.title} thumbnail`}
-            className="w-full h-48 object-cover rounded-md mb-3"
-          />
-        )}
+        <Thumbnail
+          src={bookmark.thumbnailUrl!}
+          alt={`${bookmark.title} thumbnail`}
+          className="w-full h-48 object-cover rounded-md mb-3"
+          height={192}
+          width={192}
+        />
+
         <p className="text-base font-semibold line-clamp-2">
           {bookmark.description ?? "No description"}
         </p>
