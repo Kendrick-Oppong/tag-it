@@ -37,7 +37,7 @@ export default function BookmarksClientWrapper({
     if (highlightId) {
       const timer = setTimeout(() => {
         dispatch(setHighlightedBookmarkId(null));
-      }, 6000);
+      }, 8000);
       return () => clearTimeout(timer);
     }
   }, [dispatch, highlightId]);
