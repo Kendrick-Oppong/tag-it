@@ -11,6 +11,7 @@ import {
 import { buttonVariants } from "@/components/ui/button";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { useEffect } from "react";
 
 interface PaginationTabsProps {
   totalPages: number;

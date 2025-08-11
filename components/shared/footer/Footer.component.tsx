@@ -31,7 +31,7 @@ const Footer = () => {
               <Github size={20} />
             </a>
             <a
-              href="mailhref:support@bookmarkboss.com"
+              href="mailto:support@tag-it.com"
               className="text-muted-foreground hover:text-primary transition-colors"
             >
               <Mail size={20} />

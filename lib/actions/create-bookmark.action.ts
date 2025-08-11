@@ -40,7 +40,7 @@ export const createBookmark = authActionClient
       data: bookmarkData,
     });
 
-    revalidatePath("/dashboard/bookmarks/all");
+    revalidatePath("/bookmarks");
     return {
       success: true,
       message: "Bookmark created successfully",
