@@ -61,7 +61,7 @@ const __hostCache: Map<string, number> =
 (
   globalThis as unknown as { __imgHostCache: Map<string, number> }
 ).__imgHostCache = __hostCache;
-export async function resolveAndValidateHostCached(host: string) {
+async function resolveAndValidateHostCached(host: string) {
   const now = Date.now();
   const ts = __hostCache.get(host);
   if (ts && now - ts < HOST_CACHE_TTL_MS) return;

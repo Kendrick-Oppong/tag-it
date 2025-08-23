@@ -10,6 +10,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
+  DialogClose,
 } from "@/components/ui/dialog";
 import {
   Form,
@@ -74,10 +75,16 @@ export function CreateFolderModal({
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent className="z-[1000]">
+      <DialogContent
+        className="z-[1000]"
+        // prevent accidental close
+        onInteractOutside={(e) => e.preventDefault()}
+        onEscapeKeyDown={(e) => e.preventDefault()}
+      >
         <DialogHeader>
           <DialogTitle>Create New Folder</DialogTitle>
         </DialogHeader>
+
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             <FormField
@@ -85,7 +92,7 @@ export function CreateFolderModal({
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel> Name</FormLabel>
+                  <FormLabel>Name</FormLabel>
                   <FormControl>
                     <Input
                       type="text"
@@ -98,15 +105,30 @@ export function CreateFolderModal({
                 </FormItem>
               )}
             />
-            <Button className="text-base" disabled={isPending} type="submit">
-              {isPending ? (
-                <>
-                  <Loader className="animate-spin" /> Creating{" "}
-                </>
-              ) : (
-                "Create Folder"
-              )}
-            </Button>
+
+            <div className="flex items-center gap-3">
+              <Button className="text-base" disabled={isPending} type="submit">
+                {isPending ? (
+                  <>
+                    <Loader className="animate-spin" /> Creating{" "}
+                  </>
+                ) : (
+                  "Create Folder"
+                )}
+              </Button>
+
+              {/* Close button inside dialog */}
+              <DialogClose asChild>
+                <Button
+                  type="button"
+                  variant="destructive"
+                  disabled={isPending}
+                  className="text-base"
+                >
+                  Cancel
+                </Button>
+              </DialogClose>
+            </div>
           </form>
         </Form>
       </DialogContent>

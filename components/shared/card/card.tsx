@@ -166,7 +166,7 @@ const BookMarkCard = ({
                   <AlertDialogContent>
                     <AlertDialogHeader>
                       <AlertDialogTitle>Delete bookmark?</AlertDialogTitle>
-                      <AlertDialogDescription>
+                      <AlertDialogDescription className="text-base">
                         <p>
                           {" "}
                           Are you absolutely sure? you want to delete{" "}

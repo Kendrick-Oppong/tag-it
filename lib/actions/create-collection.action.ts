@@ -4,7 +4,7 @@ import { prisma } from "@/lib/prisma";
 import { authActionClient } from "./safe-action";
 import { randomUUID } from "crypto";
 import { collectionSchema } from "@/validators/form";
-import { revalidateTag } from "next/cache";
+import { revalidatePath } from "next/cache";
 
 export const createCollection = authActionClient
   .schema(collectionSchema)
@@ -42,7 +42,7 @@ export const createCollection = authActionClient
         userId: dbUser.id,
       },
     });
-    revalidateTag("bookmarks");
+    revalidatePath("/bookmarks");
     return {
       success: true,
       message: "Collection created successfully",
