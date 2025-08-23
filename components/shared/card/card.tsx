@@ -1,5 +1,5 @@
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import {
   Card,
   CardHeader,
@@ -15,11 +15,33 @@ import {
   TooltipProvider,
 } from "@/components/ui/tooltip";
 
-import { Star, Folder, Pencil, Trash, Copy, ExternalLink } from "lucide-react";
-import React from "react";
+import {
+  Star,
+  Folder,
+  Pencil,
+  Trash,
+  Copy,
+  ExternalLink,
+  Loader,
+} from "lucide-react";
+import React, { useState } from "react";
 import Thumbnail from "./thumbnail";
 import Avatar from "./avatar";
 import { BookmarkProps } from "@/types/types";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import { deleteBookmark } from "@/lib/actions/delete-bookmark.action";
+import { useAction } from "next-safe-action/hooks";
+import { toast } from "sonner";
 
 const BookMarkCard = ({
   bookmark,
@@ -28,6 +50,32 @@ const BookMarkCard = ({
   bookmark: BookmarkProps;
   highlight: boolean;
 }) => {
+  const [open, setOpen] = useState(false);
+
+  const { execute: executeDelete, isPending: isDeleting } = useAction(
+    deleteBookmark,
+    {
+      onSuccess: ({ data }) => {
+        if (data?.success) {
+          toast.success(data?.message ?? "Bookmark deleted");
+          setOpen(false);
+        } else {
+          toast.error(data?.message ?? "Failed to delete bookmark");
+        }
+      },
+      onError: () => toast.error("Failed to delete bookmark"),
+    }
+  );
+
+  const onCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(bookmark.url);
+      toast.success("Link copied to clipboard");
+    } catch {
+      toast.error("Unable to copy link");
+    }
+  };
+
   return (
     <Card
       key={bookmark.id}
@@ -105,9 +153,64 @@ const BookMarkCard = ({
             </Tooltip>
             <Tooltip>
               <TooltipTrigger asChild>
-                <Button variant="ghost" size="icon">
-                  <Trash className="h-4 w-4 text-destructive" />
-                </Button>
+                <AlertDialog open={open || isDeleting} onOpenChange={setOpen}>
+                  <AlertDialogTrigger asChild>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => setOpen(true)}
+                    >
+                      <Trash className="h-4 w-4 text-destructive" />
+                    </Button>
+                  </AlertDialogTrigger>
+                  <AlertDialogContent>
+                    <AlertDialogHeader>
+                      <AlertDialogTitle>Delete bookmark?</AlertDialogTitle>
+                      <AlertDialogDescription>
+                        <p>
+                          {" "}
+                          Are you absolutely sure? you want to delete{" "}
+                          <strong className="text-destructive">
+                            &quot;{bookmark.title}&quot;
+                          </strong>{" "}
+                          ?
+                        </p>
+
+                        <p>
+                          This action cannot be undone. This will permanently
+                          delete the bookmark
+                        </p>
+                      </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter className="mx-auto">
+                      <AlertDialogCancel
+                        disabled={isDeleting}
+                        className={buttonVariants({
+                          variant: "default",
+                          className: "hover:text-white",
+                        })}
+                      >
+                        Cancel
+                      </AlertDialogCancel>
+                      <AlertDialogAction
+                        disabled={isDeleting}
+                        className={buttonVariants({
+                          variant: "destructive",
+                        })}
+                        onClick={() => executeDelete({ id: bookmark.id })}
+                      >
+                        {isDeleting ? (
+                          <>
+                            <Loader className="h-4 w-4 animate-spin" />
+                            Deleting
+                          </>
+                        ) : (
+                          "Delete"
+                        )}
+                      </AlertDialogAction>
+                    </AlertDialogFooter>
+                  </AlertDialogContent>
+                </AlertDialog>
               </TooltipTrigger>
               <TooltipContent>
                 <p>Delete</p>
@@ -115,7 +218,7 @@ const BookMarkCard = ({
             </Tooltip>
             <Tooltip>
               <TooltipTrigger asChild>
-                <Button variant="ghost" size="icon">
+                <Button variant="ghost" size="icon" onClick={onCopy}>
                   <Copy className="h-4 w-4" />
                 </Button>
               </TooltipTrigger>
