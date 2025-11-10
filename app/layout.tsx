@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import { Bai_Jamjuree } from "next/font/google";
 import "./globals.css";
-import { ThemeProvider } from "@/components/shared/theme/theme-provider";
-import { AuthProvider } from "./AuthProvider";
-import { Toaster } from "@/components/shared/theme/toaster";
+import { ThemeProvider } from "next-themes";
+import { Toaster } from "@/components/ui/sonner";
 
 const bai_Jamjuree = Bai_Jamjuree({
   subsets: ["latin"],
@@ -23,7 +22,6 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <AuthProvider>
       <html lang="en" suppressHydrationWarning>
         <body className={`${bai_Jamjuree.className}`}>
           <ThemeProvider
@@ -39,6 +37,5 @@ export default function RootLayout({
           </ThemeProvider>
         </body>
       </html>
-    </AuthProvider>
   );
 }
