@@ -22,26 +22,32 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useAction } from "next-safe-action/hooks";
-import { Loader } from "lucide-react";
+import { Loader, AlertTriangle } from "lucide-react";
 import { toast } from "sonner";
 import { createCollection } from "@/lib/actions/create-collection.action";
 import { collectionSchema } from "@/validators/form";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Collection } from "@prisma/client";
 
 type FormData = z.infer<typeof collectionSchema>;
 
 export function CreateFolderModal({
   children,
-}: Readonly<{ children: React.ReactNode }>) {
+  collections = [],
+}: Readonly<{ 
+  children: React.ReactNode;
+  collections?: Collection[];
+}>) {
   const [open, setOpen] = useState(false);
-  const router = useRouter();
   const form = useForm<FormData>({
     resolver: zodResolver(collectionSchema),
     defaultValues: {
       name: "",
     },
   });
+
+  const collectionsCount = collections.length;
 
   const { execute, isPending } = useAction(createCollection, {
     onError: ({ error }) => {
@@ -59,10 +65,13 @@ export function CreateFolderModal({
         toast.error(data.message);
       }
 
+      if (data?.type === "max_collections_reached") {
+        toast.error(data.message);
+      }
+
       if (data?.success) {
         toast.success(data?.message);
         form.reset({});
-        router.push(`/bookmarks/${data.collection?.name}`.toLowerCase());
         setOpen(false);
       }
     },
@@ -71,6 +80,8 @@ export function CreateFolderModal({
   const onSubmit = (data: FormData) => {
     execute(data);
   };
+
+  const isMaxReached = collectionsCount >= 15;
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -85,6 +96,19 @@ export function CreateFolderModal({
           <DialogTitle>Create New Folder</DialogTitle>
         </DialogHeader>
 
+        {isMaxReached && (
+          <Alert className="border-destructive">
+            <AlertTriangle className="h-4 w-4" />
+            <AlertDescription>
+              Maximum limit of 15 collections reached. Please delete some collections before creating new ones.
+            </AlertDescription>
+          </Alert>
+        )}
+
+        <div className="text-sm text-muted-foreground">
+          Collections: {collectionsCount}/15
+        </div>
+
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             <FormField
@@ -98,6 +122,7 @@ export function CreateFolderModal({
                       type="text"
                       className="border-primary dark:border-border"
                       placeholder="Enter folder name"
+                      disabled={isMaxReached}
                       {...field}
                     />
                   </FormControl>
@@ -107,7 +132,11 @@ export function CreateFolderModal({
             />
 
             <div className="flex items-center gap-3">
-              <Button className="text-base" disabled={isPending} type="submit">
+              <Button 
+                className="text-base" 
+                disabled={isPending || isMaxReached} 
+                type="submit"
+              >
                 {isPending ? (
                   <>
                     <Loader className="animate-spin" /> Creating{" "}

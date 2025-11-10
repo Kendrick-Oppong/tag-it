@@ -1,11 +1,6 @@
 import { NavigationData } from "@/interfaces/data.interfaces";
-import { Collection } from "@prisma/client";
 
-
-
-export const getNavigationData = (
-  collections: Collection[]
-): NavigationData => {
+export const getNavigationData = (): NavigationData => {
   return {
     navMain: [
       {
@@ -13,11 +8,7 @@ export const getNavigationData = (
         url: "/bookmarks",
         isActive: true,
         subItems: [
-          { title: "All", url: "/bookmarks/all" },
-          ...(collections?.map((collection) => ({
-            title: collection.name,
-            url: `/bookmarks/${collection.name.toLowerCase()}`,
-          })) ?? []),
+          { title: "Bookmarks", url: "/bookmarks/all" },
         ],
       },
       {

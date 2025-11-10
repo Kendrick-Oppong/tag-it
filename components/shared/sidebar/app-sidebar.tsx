@@ -18,12 +18,14 @@ import {
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { NavigationData } from "@/interfaces/data.interfaces";
+import { Collection } from "@prisma/client";
 
 import { NavUser } from "./nav-user";
 import { CreateFolderModal } from "../forms/CreateModal";
 
 type AppSidebarProps = React.ComponentProps<typeof Sidebar> & {
   navigationData: NavigationData;
+  collections?: Collection[];
 };
 
 // Map titles to icons
@@ -32,7 +34,7 @@ const iconMap: Record<string, React.ElementType> = {
   "New Bookmark": Plus,
 };
 
-export function AppSidebar({ navigationData, ...props }: AppSidebarProps) {
+export function AppSidebar({ navigationData, collections, ...props }: AppSidebarProps) {
   const [activeItem, setActiveItem] = useState(navigationData.navMain[0]);
   const router = useRouter();
   const { setOpen } = useSidebar();
@@ -95,7 +97,7 @@ export function AppSidebar({ navigationData, ...props }: AppSidebarProps) {
                     }}
                     className="px-2.5 md:px-2 mb-2"
                   >
-                    <CreateFolderModal>
+                    <CreateFolderModal collections={collections}>
                       <FolderKanban className="size-10" />
                     </CreateFolderModal>
                   </SidebarMenuButton>

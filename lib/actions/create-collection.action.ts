@@ -20,6 +20,19 @@ export const createCollection = authActionClient
       };
     }
 
+    // Check if user has reached the maximum limit of 15 collections
+    const collectionsCount = await prisma.collection.count({
+      where: { userId: dbUser.id },
+    });
+
+    if (collectionsCount >= 15) {
+      return {
+        success: false,
+        type: "max_collections_reached",
+        message: "Maximum limit of 15 collections reached. Please delete some collections before creating new ones.",
+      };
+    }
+
     const existingCollection = await prisma.collection.findFirst({
       where: {
         userId: dbUser.id,

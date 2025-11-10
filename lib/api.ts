@@ -22,6 +22,7 @@ export const fetchUserData = cache(async () => {
   }
 })
 
+
 export const fetchUserBookmarks = cache(
   async (page = 1, collectionName?: string) => {
     const { user } = await requireUser();
